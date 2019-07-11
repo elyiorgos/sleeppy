@@ -8,7 +8,7 @@ def readme():
 
 def requirements():
     with open('requirements.txt', "r") as fh:
-        return fh.read().split('\n')
+        return [x for x in fh.read().split('\n') if x]
 
 
 setuptools.setup(name='sleeppy',
@@ -18,11 +18,11 @@ setuptools.setup(name='sleeppy',
                  description='Python package for sleep analysis of raw accelerometer data from GeneActiv wrist watches',
                  long_description=readme(),
                  long_description_content_type="text/markdown",
-                 url='http://github.com/yiorg/sleeppy',
+                 url='http://github.com/elyiorgos/sleeppy',
                  packages=setuptools.find_packages(),
                  keywords=['sleep', 'wake', 'sensor', 'digital', 'wearable', 'python', 'rest', 'period', 'christakis'],
                  classifiers=["Programming Language :: Python :: 2.7",
-                              "License :: OSI Approved :: MIT License",],
+                              "License :: OSI Approved :: MIT License"],
                  license='MIT',
                  zip_safe=False,
                  install_requires=requirements(),
