@@ -104,7 +104,7 @@ Any of the above should take approximately 10-15 minutes, though depending on yo
 ## Interpreting the results
 The most informative reports are the reports provided for each individual day, which resemble the image below (demo report):
 
-![Report Demo](sleeppy/demo/report_images/Visual_Results_Day_1.png)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png?token=AECHRMACMGQTUEPUAPIXAEC5E53LG)
 
 As shown above, the report includes the source file name, the number of the day in the series of days provided, the start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data available during the 24-hour window specified. The subplots are set up to show the multiple forms that the data can take during the analysis. They are layed out as follows:
 
