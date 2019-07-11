@@ -1,6 +1,12 @@
 import pandas as pd
 import os
 import numpy as np
+import matplotlib
+try:
+    matplotlib.use('TkAgg')
+except Exception as e:
+    print "Error: could not use TkAgg as backend"
+    pass
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
