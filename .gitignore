@@ -1,0 +1,9 @@
+*.xml
+*.iml
+*.pyc
+.DS_Store
+/dist/
+/*.egg-info
+.idea/
+.eggs/
+build/
