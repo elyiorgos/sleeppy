@@ -20,7 +20,7 @@ pip install sleeppy
 It can also be installed from source:
 
 ```sh
-git clone https://github.com/yiorg/SleepPy
+git clone https://github.com/elyiorgos/sleeppy.git
 cd sleeppy
 python setup.py install
 ```
