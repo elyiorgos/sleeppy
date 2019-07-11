@@ -1,17 +1,11 @@
 # SleepPy
-Python package for sleep analysis of raw accelerometer data from GeneActiv wrist watches
+Python(2.7) package for sleep analysis of raw accelerometer data from GeneActiv wrist watches
 
 ## Overview
 SleepPy is a set of methods and classes built to process raw accelerometer data captured on the wrist. The current implementation expects data from GeneActiv wrist watches, using a loader to construct a dataframe from the data. Further iterations will specify a more general input format for broader use. The package analyzes sleep on a 24-hour basis and generates human readable reports that include clinical endpoints for sleep. Please refer to the references section for a list of all published works used to inform the creation of the package.
 
 ## Requirements
-In order to use SleepPy please install the listed requirements as follows (note: python version 2.7)
-
-```sh
-pip install -r requirements.txt
-```
-
-SleepPy can be installed through pip:
+SleepPy can be installed through pip, which will handle requirement installation for you:
 
 ```sh
 pip install sleeppy
@@ -29,6 +23,12 @@ If given a permissions error, you may have to run the following and input your p
 
 ```sh
 sudo python setup.py install
+```
+
+If necessary the listed requirements can be installed as follows:
+
+```sh
+pip install -r requirements.txt
 ```
 
 
