@@ -13,14 +13,14 @@ tags:
   - Wearable Sensors
 
 authors:
-  - name: Yiorgos Christakis,
-    orcid: 0000-0003-3371-8935,
+  - name: Yiorgos Christakis
+    orcid: 0000-0003-3371-8935
     affiliation: 1
-  - name: Nikhil Mahadevan,
-    orcid: 0000-0003-0257-9311,
+  - name: Nikhil Mahadevan
+    orcid: 0000-0003-0257-9311
     affiliation: 1
-  - name: Shyamal Patel,
-    orcid: 0000-0002-4369-3033,
+  - name: Shyamal Patel
+    orcid: 0000-0002-4369-3033
     affiliation: 1
 
 affiliations:
