@@ -464,7 +464,12 @@ class SleepPy:
             for group in wake_bout_df.groupby(by='block'):
                 if group[1]['sleep_predictions'].sum() > 0:
                     num_wake_bouts += 1
-            endpoints.append([count, tst[0], pct_time_sleep[0], waso, sleep_onset_lat, num_wake_bouts])
+            endpoints.append([int(count),
+                              int(tst[0]),
+                              int(np.round(pct_time_sleep[0])),
+                              int(waso),
+                              int(sleep_onset_lat),
+                              int(num_wake_bouts)])
 
         # build and save output dataframe
         hdr = ["day", "total_sleep_time", "percent_time_asleep", "waso", "sleep_onset_latency", "number_wake_bouts"]
@@ -717,30 +722,37 @@ class SleepPy:
             plt.close()
 
         # generate a summary plot from endpoint data
-        fig, (ax0, ax1, ax2, ax3, ax4) = plt.subplots(5, 1, figsize=(10, 10))
+        fig, (ax0, ax1, ax2, ax3, ax4) = plt.subplots(5, 1, figsize=(12, 12))
         plt.suptitle('Summary Report for Source: {}'.format(self.src_name), fontsize=16)
         all_axes = (ax0, ax1, ax2, ax3, ax4)
+        ylabels = [
+            'Total Sleep\nTime(min)\nMean: {}'
+                .format(int(np.round(endpoints.total_sleep_time.mean()))),
+            'Percent Time\nAsleep\nMean: {}'
+                .format(int(np.round(endpoints.percent_time_asleep.mean()))),
+            'Wake After\nSleep Onset(min)\nMean: {}'
+                .format(int(np.round(endpoints.waso.mean()))),
+            'Sleep Onset\nLatency(min)\nMean: {}'
+                .format(int(np.round(endpoints.sleep_onset_latency.mean()))),
+            'Number of\nWake Bouts\nMean: {}'
+                .format(int(np.round(endpoints.number_wake_bouts.mean())))
+        ]
 
         # plot total sleep time
         endpoints.total_sleep_time.plot.bar(ax=ax0,
-                                            title='Total Sleep Time (minutes)    Mean: {}'.
-                                            format(np.round(endpoints.total_sleep_time.mean(), decimals=2)))
+                                            title='')
         # plot percent time asleep
         endpoints.percent_time_asleep.plot.bar(ax=ax1,
-                                               title='Percent Time Asleep    Mean: {}'.
-                                               format(np.round(endpoints.percent_time_asleep.mean(), decimals=2)))
+                                               title='')
         # plot wake after sleep onset
         endpoints.waso.plot.bar(ax=ax2,
-                                title='Wake After Sleep Onset (minutes)    Mean: {}'.
-                                format(np.round(endpoints.waso.mean(), decimals=2)))
+                                title='')
         # plot sleep onset latency
         endpoints.sleep_onset_latency.plot.bar(ax=ax3,
-                                               title='Sleep Onset Latency (minutes)    Mean: {}'.
-                                               format(np.round(endpoints.sleep_onset_latency.mean(), decimals=2)))
+                                               title='')
         # plot the number of wake bouts
         endpoints.number_wake_bouts.plot.bar(ax=ax4,
-                                             title='Number of Wake Bouts    Mean: {}'.
-                                             format(np.round(endpoints.number_wake_bouts.mean(), decimals=2)))
+                                             title='')
         # plot formatting
         count = 0
         for ax in all_axes:
@@ -750,18 +762,20 @@ class SleepPy:
             ax.spines['bottom'].set_visible(False)
             ax.spines['left'].set_visible(False)
             ax.grid(False)
+            ax.set_ylabel(ylabels[count - 1], rotation=0, fontsize=12, labelpad=50)
             if count < 5:
                 ax.set_xlabel('')
-                ax.set_ylabel('')
                 ax.get_xaxis().set_ticks([])
                 ax.get_yaxis().set_ticks([])
             else:
-                ax.set_xlabel('Day')
+                ax.set_xlabel('Day', fontsize=20)
                 ax.get_yaxis().set_ticks([])
             plt.setp(ax.xaxis.get_majorticklabels(), rotation=0)
             for p in ax.patches:
                 ax.annotate(np.round(p.get_height(), decimals=2), (p.get_x() + p.get_width() / 2., 0),
                             ha='center', va='center', xytext=(0, 10), textcoords='offset points', fontweight='bold')
+        plt.subplots_adjust(wspace=0, hspace=0.01)
+        plt.xticks(fontsize=20)
         plt.draw()
         plt.savefig(self.sub_dst + '/reports/Summary_Report.pdf')
         plt.close()
