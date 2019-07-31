@@ -91,8 +91,5 @@ The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the 
 
 # References
 
-# Author
-Yiorgos Christakis
-
 # License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
