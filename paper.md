@@ -53,7 +53,7 @@ Measures of sleep quality and quantity can provide valuable insights into the he
 # Outputs
 The user has access to all intermediate data, a table of sleep measures, and two kinds of visual reports.
 
-![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png?token=AECHRMACMGQTUEPUAPIXAEC5E53LG)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png?token=AECHRMFY6AZUOYWBUB32HHS5IG3YS)
 
 Figure 1: Visual report showing various raw and processed data streams
 
@@ -72,7 +72,7 @@ The plots are laid out as follows:
 # Sleep Measures Report
 Sleep measures derived from the sleep/wake classifications for each day are provided in a table as well as a visual report (Figure 2).
 
-![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png?token=AECHRMACMGQTUEPUAPIXAEC5E53LG)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/summary_example.png?token=AECHRMGITYU2LQGFKFP3WIK5IG3YG)
 
 Figure 2: Visual report showing a plot of sleep measures across all days.
 
