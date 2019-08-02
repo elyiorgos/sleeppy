@@ -47,7 +47,7 @@ Measures of sleep quality and quantity can provide valuable insights into the he
 
 2.	Derive activity index [@Bai2016]: Calculate activity index for each 1 minute epoch of the day.
 
-3.	Perform off-body detection [@VanHees2019]: Run off-body detection algorithm and generate a label (on or off body) for each 15 minute epoch of the day.
+3.	Perform off-body detection [@VanHees2014],[@VanHees2015],[@VanHees2019]: Run off-body detection algorithm and generate a label (on or off body) for each 15 minute epoch of the day.
 
 4.	Identify major rest period [@VanHees2018]: Estimate the major rest period (i.e. sleep window) for each day.
 
