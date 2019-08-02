@@ -104,7 +104,7 @@ The software is available as a pip installable package, as well as on GitHub at:
 # Acknowledgements
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
-# References
-
 # License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+
+# References
