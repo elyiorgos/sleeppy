@@ -1,16 +1,18 @@
 import time
 import os
 from sleeppy.sleep import *
+import pandas as pd
 
 
 def run_demo():
     src = __file__.split('.py')[0] + '.bin'
-    st = time.time()
     dst = raw_input("Please provide a path to a results directory:    ")
     while not os.path.isdir(dst):
         dst = raw_input("\nYour previous entry was not appropriate."
                         "\nIt should follow a format similar to /Users/username/Desktop/Results"
                         "\nPlease provide a path to a results directory:    ")
+
+    st = time.time()
     try:
         SleepPy(input_file=src,
                 results_directory=dst,
@@ -19,6 +21,37 @@ def run_demo():
         print "Error processing: {}\nError: {}".format(src, e)
     stp = time.time()
     print "total run time: {} minutes".format((stp-st)/60.)
+
+    print "Checking endpoints..."
+    expected = [1, 470, 100, 2, 0, 1]
+    obtained = collect_endpoints(dst)
+    test_endpoints(expected, obtained)
+
+
+def collect_endpoints(results_dir):
+    src = results_dir + '/demo/sleep_endpoints/sleep_endpoints_summary.csv'
+    return pd.read_csv(src).values[0]
+
+
+def test_endpoints(expected, obtained):
+    endpoint_names = ['day',
+                      'total_sleep_time',
+                      'percent_time_asleep',
+                      'waso',
+                      'sleep_onset_latency',
+                      'number_wake_bouts']
+    errors = 0
+    for i in range(len(expected)):
+        try:
+            assert expected[i] == obtained[i]
+        except AssertionError :
+            print "Error encountered: endpoint at index {} ({}) " \
+                  "does not match expected output".format(i, endpoint_names[i])
+            errors += 1
+    if errors > 0:
+        print "Total of {} errors encountered".format(errors)
+    else:
+        print "All tests passed"
 
 
 if __name__ == "__main__":

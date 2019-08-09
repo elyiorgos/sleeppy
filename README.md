@@ -2,12 +2,24 @@
 A Python(2.7) package for sleep analysis from accelerometer data
 
 ## Overview
-Measures of sleep quality and quantity can provide valuable insights into the health and well-being of an individual. Traditionally, sleep assessments are performed in the clinic/hospital setting using polysomnography tests. Recent advances in wearable sensor technology have enabled objective assessment of sleep at home. Actigraphy has been widely used for this purpose and several algorithms have been published in the literature over the years. However, implementation of these algorithms is not widely available, which creates a barrier for wider adoption of wearable devices in clinical research.
+Measures of sleep quality and quantity can provide valuable insights into the health and well-being of an individual. 
+Traditionally, sleep assessments are performed in the clinic/hospital setting using polysomnography tests. 
+Recent advances in wearable sensor technology have enabled objective assessment of sleep at home. 
+Actigraphy has been widely used for this purpose and several algorithms have been published in the literature 
+over the years. However, implementation of these algorithms is not widely available, which creates a barrier for wider 
+adoption of wearable devices in clinical research.
 
-``SleepPy`` is an open source python package incorporating several published algorithms in a modular framework and providing a suite of measures for the assessment of sleep quantity and quality. The package can process multi-day streams of raw accelerometer data (X, Y & Z) from wrist-worn wearable devices to produce sleep reports and visualizations for each recording day (24-hour period). The reports are formatted to facilitate statistical analysis of sleep measures. Visualization acts as a quick debugging tool, provides insights into sleep patterns of individual subjects and can be used for presentation of data to diverse audiences.
+``SleepPy`` is an open source python package incorporating several published algorithms in a modular framework and 
+providing a suite of measures for the assessment of sleep quantity and quality. The package can process multi-day 
+streams of raw accelerometer data (X, Y & Z) from wrist-worn wearable devices to produce sleep reports and 
+visualizations for each recording day (24-hour period). The reports are formatted to facilitate statistical 
+analysis of sleep measures. Visualization acts as a quick debugging tool, provides insights into sleep patterns of 
+individual subjects and can be used for presentation of data to diverse audiences.
 
 ## Requirements
-``SleepPy`` can be installed through pip, which will handle requirement installation for you:
+``SleepPy`` can be installed through pip, which will handle requirement installation for you (please note that SleepPy 
+will use specific versions of all required packages, to avoid possible issues with your existing environments 
+we suggest using a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)):
 
 ```sh
 pip install sleeppy
@@ -41,18 +53,26 @@ pip install -r requirements.txt
 
 2.	Derive activity index: Calculate activity index for each 1 minute epoch of the day.
 
-3.	Perform off-body detection: Run off-body detection algorithm and generate a label (on or off body) for each 15 minute epoch of the day.
+3.	Perform off-body detection: Run off-body detection algorithm and generate a label (on or off body) for each 15 
+minute epoch of the day.
 
 4.	Identify major rest period: Estimate the major rest period (i.e. sleep window) for each day.
 
-5.	Perform sleep/wake classification: Run sleep/wake classification algorithm to generate sleep/wake labels for each 1 minute epoch of the day.
+5.	Perform sleep/wake classification: Run sleep/wake classification algorithm to generate sleep/wake labels for each 
+1 minute epoch of the day.
 
-6.	Calculate sleep measures: Calculate sleep measures based on sleep/wake states only during the major rest period for each day.
+6.	Calculate sleep measures: Calculate sleep measures based on sleep/wake states only during the major rest period for 
+each day.
 
-7.	Generate reports and visualizations: Create a set of tables and charts for analysis and presentation of processed outputs and sleep measures for each day.
+7.	Generate reports and visualizations: Create a set of tables and charts for analysis and presentation of processed 
+outputs and sleep measures for each day.
 
 ## How to run SleepPy
-SleepPy is designed for ease of use in a research environment, and therefore attempts to remove as much of the burden as possible from the user. The following syntax will run ``SleepPy`` in full and generate all necessary data and reports, saving all intermediate data in various folders. ``SleepPy`` can be run with both GeneActiv .bin files, as well as the raw .csv outputs of the GeneActiv software. Processing the .bin files adds a non trivial amount of processing time to the running of SleepPy, and for quick results we recommend using the .csv version where possible.
+SleepPy is designed for ease of use in a research environment, and therefore attempts to remove as much of the burden 
+as possible from the user. The following syntax will run ``SleepPy`` in full and generate all necessary data and 
+reports, saving all intermediate data in various folders. ``SleepPy`` can be run with both GeneActiv .bin files, as 
+well as the raw .csv outputs of the GeneActiv software. Processing the .bin files adds a non trivial amount of 
+processing time to the running of SleepPy, and for quick results we recommend using the .csv version where possible.
 
 ```sh
 from sleeppy.sleep import *
@@ -62,7 +82,11 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
         sampling_frequency=100)
 ```
 
-``SleepPy`` can also be run with the following arguments. Start and stop buffer allow for the specification of ignored time at the beginning and end of the GeneActiv file. If a research site knows, for instance, that the watch will not be on the subject for one hour at the beginning and end of the recorded session, that data can be excluded. The same can also be done with the start and stop time arguments, which allow for the specification of a date and time for starting and stopping the analysis. The formats for these arguments can be found in the sleep.py docs.
+``SleepPy`` can also be run with the following arguments. Start and stop buffer allow for the specification of ignored 
+time at the beginning and end of the GeneActiv file. If a research site knows, for instance, that the watch will not be 
+on the subject for one hour at the beginning and end of the recorded session, that data can be excluded. The same can 
+also be done with the start and stop time arguments, which allow for the specification of a date and time for starting 
+and stopping the analysis. The formats for these arguments can be found in the sleep.py docs.
 
 ```sh
 from sleeppy.sleep import *
@@ -99,28 +123,39 @@ In the interpreter window you can then import and run the demo with the followin
 >>> demo.run_demo()
 ```
 
-The demo script will prompt you to type in a results directory, if simply testing you can type something like /Users/username/Desktop to have the results saved to your desktop.
+The demo script will prompt you to type in a results directory, if simply testing you can type something like 
+/Users/username/Desktop to have the results saved to your desktop.
 
-Any of the above should take approximately 10-15 minutes, though depending on your machine this may vary. It should generate and save all intermediate data, as well as all the relevant reports. Due to file size constraints, the demo file type is .bin which adds a nontrivial amount to the processing time.
+Any of the above should take approximately 10-15 minutes, though depending on your machine this may vary. It should 
+generate and save all intermediate data, as well as all the relevant reports. Due to file size constraints, the demo 
+file type is .bin which adds a nontrivial amount to the processing time.
 
 ## Interpreting the results
 The most informative reports are the reports provided for each individual day, which resemble the image below (demo report):
 
 ![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png)
 
-As shown above, the report includes the source file name, the number of the day in the series of days provided, the start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data available during the 24-hour window specified. The subplots are set up to show the multiple forms that the data can take during the analysis. They are layed out as follows:
+As shown above, the report includes the source file name, the number of the day in the series of days provided, the 
+start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data 
+available during the 24-hour window specified. The subplots are set up to show the multiple forms that the data can 
+take during the analysis. They are layed out as follows:
 
 1.	XYZ: The first chart is a plot of the raw tri-axial accelerometer signals (X, Y, and Z).
 
-2.	Activity index: The second chart is a plot of minute-by-minute activity index values, which reflect the intensity of activity for each minute.
+2.	Activity index: The second chart is a plot of minute-by-minute activity index values, which reflect the intensity 
+of activity for each minute.
 
-3.	Arm-angle: The third chart is a plot of the arm-angle over 24 hours, this data stream is used to determine the major rest period.
+3.	Arm-angle: The third chart is a plot of the arm-angle over 24 hours, this data stream is used to determine the 
+major rest period.
 
-4.	Wake: The fourth chart represents sleep/wake classification for the entire day. However, sleep measures are computed during the major rest period only.
+4.	Wake: The fourth chart represents sleep/wake classification for the entire day. However, sleep measures are 
+computed during the major rest period only.
 
-5.	Rest periods: The fifth chart is a plot of all rest periods detected by the algorithm. Only the longest rest period (i.e. major rest period) is used for calculating sleep measures.
+5.	Rest periods: The fifth chart is a plot of all rest periods detected by the algorithm. Only the longest rest 
+period (i.e. major rest period) is used for calculating sleep measures.
 
-6.	On-body: The sixth chart is a plot of all periods identified by the on-body detection algorithm (without filtering or re-scoring).
+6.	On-body: The sixth chart is a plot of all periods identified by the on-body detection algorithm (without filtering 
+or re-scoring).
 
 7.	On-body (re-scored): The seventh chart is a plot of the on-body periods after re-scoring has been applied.
 
@@ -160,6 +195,6 @@ https://doi.org/10.1371/journal.pone.0160644
 Yiorgos Christakis
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/elyiorgos/sleeppy/blob/master/LICENSE.md) file for details
 
 

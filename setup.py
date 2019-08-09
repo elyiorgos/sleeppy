@@ -12,7 +12,7 @@ def requirements():
 
 
 setuptools.setup(name='sleeppy',
-                 version='0.12',
+                 version='0.13',
                  author="Yiorgos Christakis",
                  author_email="elyiorgos@gmail.com",
                  description='Python package for sleep analysis of raw accelerometer data from GeneActiv wrist watches',
