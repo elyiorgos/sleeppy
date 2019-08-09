@@ -18,11 +18,11 @@ def run_demo():
     try:
         SleepPy(input_file=src, results_directory=dst, sampling_frequency=100)
     except Exception as e:
-        print "Error processing: {}\nError: {}".format(src, e)
+        print("Error processing: {}\nError: {}".format(src, e))
     stp = time.time()
-    print "total run time: {} minutes".format((stp - st) / 60.0)
+    print("total run time: {} minutes".format((stp - st) / 60.0))
 
-    print "Checking endpoints..."
+    print("Checking endpoints...")
     expected = [1, 470, 100, 2, 0, 1]
     obtained = collect_endpoints(dst)
     test_endpoints(expected, obtained)
@@ -47,14 +47,15 @@ def test_endpoints(expected, obtained):
         try:
             assert expected[i] == obtained[i]
         except AssertionError:
-            print "Error encountered: endpoint at index {} ({}) " "does not match expected output".format(
-                i, endpoint_names[i]
+            print(
+                "Error encountered: endpoint at index {} ({}) "
+                "does not match expected output".format(i, endpoint_names[i])
             )
             errors += 1
     if errors > 0:
-        print "Total of {} errors encountered".format(errors)
+        print("Total of {} errors encountered".format(errors))
     else:
-        print "All tests passed"
+        print("All tests passed")
 
 
 if __name__ == "__main__":

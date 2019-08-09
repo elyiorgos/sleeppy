@@ -6,7 +6,7 @@ import matplotlib
 try:
     matplotlib.use("TkAgg")
 except Exception as e:
-    print "Error: could not use TkAgg as backend"
+    print("Error: could not use TkAgg as backend")
     pass
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
