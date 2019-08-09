@@ -81,8 +81,8 @@ class SleepPy:
         :param sampling_frequency: sampling frequency of the GeneActiv data to be processed
         :param start_buffer: number of seconds to ignore from the beginning of the recording
         :param stop_buffer: number of seconds to ignore from the end of the recording
-        :param start_time: time_stamp from which to start looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
-        "param stop time: time stamp at which to stop looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
+        :param start_time: time stamp from which to start looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
+        :param stop_time: time stamp at which to stop looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
         """
         self.src = input_file  # save input location
         self.dst = results_directory  # save output location
