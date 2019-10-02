@@ -192,7 +192,7 @@ Data and Its Comparison with Other Activity Metrics. PLoS ONE 11(8): e0160644.
 https://doi.org/10.1371/journal.pone.0160644
 
 ## Contributing to the project
-We welcome and encourage project contributions! Please see the [CONTRIBUTING.md] file for details.
+We welcome and encourage project contributions! Please see the [CONTRIBUTING.md](https://github.com/elyiorgos/sleeppy/blob/master/CONTRIBUTING.md) file for details.
 
 ## Author
 Yiorgos Christakis
