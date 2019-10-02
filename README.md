@@ -191,6 +191,9 @@ Bai J, Di C, Xiao L, Evenson KR, LaCroix AZ, Crainiceanu CM, et al. (2016) An Ac
 Data and Its Comparison with Other Activity Metrics. PLoS ONE 11(8): e0160644.
 https://doi.org/10.1371/journal.pone.0160644
 
+## Contributing to the project
+We welcome and encourage project contributions! Please see the [CONTRIBUTING.md] file for details.
+
 ## Author
 Yiorgos Christakis
 
