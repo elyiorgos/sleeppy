@@ -1,6 +1,6 @@
 import time
 import os
-from sleeppy.sleep import *
+from sleeppy.sleep import SleepPy
 import pandas as pd
 
 
