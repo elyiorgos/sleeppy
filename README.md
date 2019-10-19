@@ -101,6 +101,9 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
 ```
 
 ## Running the demo files
+#### Try it out with binder
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/elyiorgos/sleeppy/master?filepath=example_notebook%2Fexample.ipynb)
+
 #### From the terminal window you can run the demo directly:
 
 ```sh
