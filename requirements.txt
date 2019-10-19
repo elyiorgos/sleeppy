@@ -5,4 +5,4 @@ scipy==1.2.2
 seaborn==0.9.0
 bitstring==3.1.5
 argparse==1.1
-
+tables
