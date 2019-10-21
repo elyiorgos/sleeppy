@@ -4,7 +4,7 @@ from sleeppy.sleep import SleepPy
 import pandas as pd
 
 
-def run_demo():
+def run_demo(binder_demo=False):
     src = __file__.split(".py")[0] + ".bin"
     dst = raw_input("Please provide a path to a results directory:    ")
     while not os.path.isdir(dst):
@@ -16,7 +16,10 @@ def run_demo():
 
     st = time.time()
     try:
-        SleepPy(input_file=src, results_directory=dst, sampling_frequency=100)
+        if not binder_demo:
+            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100)
+        else:
+            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100, run_config=4)
     except Exception as e:
         print("Error processing: {}\nError: {}".format(src, e))
     stp = time.time()

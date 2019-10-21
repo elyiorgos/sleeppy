@@ -14,6 +14,7 @@ import seaborn as sns
 import struct
 from bitstring import BitArray
 from scipy import signal
+from shutil import copy, rmtree
 
 sns.set()
 pd.options.mode.chained_assignment = None
@@ -72,6 +73,15 @@ class SleepPy:
         stop_buffer="0s",
         start_time="",
         stop_time="",
+        run_config=0,
+        temperature_threshold=25.0,
+        minimum_rest_block=30,
+        allowed_rest_break=60,
+        minimum_rest_threshold=0.0,
+        maximum_rest_threshold=1000.0,
+        minimum_hours=6,
+        clear_intermediate_data=False,
+        aws_object=None,
     ):
         """
         Class initialization.
@@ -83,8 +93,21 @@ class SleepPy:
         :param stop_buffer: number of seconds to ignore from the end of the recording
         :param start_time: time stamp from which to start looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
         :param stop_time: time stamp at which to stop looking at data (str) format: "%Y-%m-%d %H:%M:%S:%f"
+        :param run_config: int in range 0-6, dictates which stage of sleeppy to run from (see self.run())
+        :param temperature_threshold: Minimum temperature at which to accept a candidate rest period.
+        :param minimum_rest_block: number of minutes required to consider a rest period valid (int)
+        :param allowed_rest_break: number of minutes allowed to interrupt major rest period (int)
+        :param minimum_rest_threshold: minimum allowed threshold for determining major rest period (float)
+        :param maximum_rest_threshold: maximum allowed threshold for determining major rest period (float)
+        :param minimum_hours: minimum number of hours required to consider a day useable (int)
+        :param clear_intermediate_data: boolean flag to clear all intermediate data
+        :param aws_object: data object to be processed from aws (in place of source file path
         """
-        self.src = input_file  # save input location
+        if aws_object is not None:
+            self.src = aws_object
+        else:
+            self.src = input_file  # save input location
+        self.extension = input_file.split(".")[-1]
         self.dst = results_directory  # save output location
         self.src_name = input_file.split("/")[-1][0:-4]  # save naming convention
         self.sub_dst = (
@@ -101,6 +124,14 @@ class SleepPy:
         self.stop_buffer = stop_buffer
         self.start_time = start_time
         self.stop_time = stop_time
+        self.run_config = run_config
+        self.min_t = temperature_threshold
+        self.minimum_rest_block = minimum_rest_block
+        self.allowed_rest_break = allowed_rest_break
+        self.minimum_rest_threshold = minimum_rest_threshold
+        self.maximum_rest_threshold = maximum_rest_threshold
+        self.minimum_hours = minimum_hours
+        self.clear = clear_intermediate_data
         self.run()  # run the package
 
     def run(self):
@@ -112,29 +143,37 @@ class SleepPy:
             os.mkdir(self.sub_dst)  # set up output directory
         except OSError:
             pass
-        # split the data into 24 hour periods
-        if ".bin" in self.src:
-            self.split_days_geneactiv_bin()
-        elif ".csv" in self.src:
-            self.split_days_geneactiv_csv()
+        if self.run_config <= 0:
+            # split the data into 24 hour periods
+            if ".bin" in self.src:
+                self.split_days_geneactiv_bin()
+            elif ".csv" in self.src:
+                self.split_days_geneactiv_csv()
+        if self.run_config <= 1:
+            # extract the activity index feature
+            self.extract_activity_index()
+        if self.run_config <= 2:
+            # run wear/on-body detection
+            self.wear_detection()
+        if self.run_config <= 3:
+            # run major rest period detection
+            self.major_rest_period()
+        if self.run_config <= 4:
+            # run sleep wake predictions on the major rest period
+            self.sleep_wake_predict()
+        if self.run_config <= 5:
+            # calculate endpoints based on the above predictions
+            self.calculate_endpoints()
+        if self.run_config <= 6:
+            # generates visual reports
+            self.visualize_results()
 
-        # extract the activity index feature
-        self.extract_activity_index()
+        # aggregate results
+        self.aggregate_results()
 
-        # run wear/on-body detection
-        self.wear_detection()
-
-        # run major rest period detection
-        self.major_rest_period()
-
-        # run sleep wake predictions on the major rest period
-        self.sleep_wake_predict()
-
-        # calculate endpoints based on the above predictions
-        self.calculate_endpoints()
-
-        # generates visual reports
-        self.visualize_results()
+        # clear data
+        if self.clear:
+            self.clear_data()
 
     def split_days_geneactiv_csv(self):
         """
@@ -152,7 +191,7 @@ class SleepPy:
             skiprows=100,
             header=None,
             names=["Time", "X", "Y", "Z", "LUX", "Button", "T"],
-            usecols=["Time", "X", "Y", "Z", "T"],
+            usecols=["Time", "X", "Y", "Z", "LUX", "T"],
             dtype={
                 "Time": object,
                 "X": np.float64,
@@ -202,7 +241,7 @@ class SleepPy:
             # save each 24 hour day separately if there's enough data to analyze
             df = day[1].copy()
             available_hours = (len(df) / float(self.fs)) / 3600.0
-            if available_hours >= 6:
+            if available_hours >= self.minimum_hours:
                 count += 1
                 dst = "/raw_days/{}_day_{}.h5".format(
                     self.src_name, str(count).zfill(2)
@@ -258,7 +297,7 @@ class SleepPy:
             # save each 24 hour day separately if there's enough data to analyze
             df = day[1].copy()
             available_hours = (len(df) / float(self.fs)) / 3600.0
-            if available_hours >= 6:
+            if available_hours >= self.minimum_hours:
                 count += 1
                 dst = "/raw_days/{}_day_{}.h5".format(
                     self.src_name, str(count).zfill(2)
@@ -282,6 +321,7 @@ class SleepPy:
             [
                 self.sub_dst + "/raw_days/" + i
                 for i in os.listdir(self.sub_dst + "/raw_days/")
+                if ".DS_Store" not in i
             ]
         )
         for day in days:
@@ -345,6 +385,7 @@ class SleepPy:
             [
                 self.sub_dst + "/raw_days/" + i
                 for i in os.listdir(self.sub_dst + "/raw_days/")
+                if ".DS_Store" not in i
             ]
         )
         for day in days:
@@ -373,7 +414,7 @@ class SleepPy:
             # save before rescoring
             df_wear.to_hdf(
                 self.sub_dst
-                + "/wear_detection/wear_detection_day_{}.hdf".format(
+                + "/wear_detection/wear_detection_day_{}.h5".format(
                     str(count).zfill(2)
                 ),
                 key="wear_detection_24hr",
@@ -390,7 +431,7 @@ class SleepPy:
             # save post rescoring
             df_wear.to_hdf(
                 self.sub_dst
-                + "/wear_detection/wear_detection_rescored_day_{}.hdf".format(
+                + "/wear_detection/wear_detection_rescored_day_{}.h5".format(
                     str(count).zfill(2)
                 ),
                 key="wear_detection_rescored_24hr",
@@ -414,49 +455,86 @@ class SleepPy:
             [
                 self.sub_dst + "/raw_days/" + i
                 for i in os.listdir(self.sub_dst + "/raw_days/")
+                if ".DS_Store" not in i
             ]
         )
         for day in days:
-            df = pd.read_hdf(day)[["X", "Y", "Z"]]
+            df = pd.read_hdf(day)
+            df = df[["X", "Y", "Z", "T"]]
             available_hours = (len(df) / float(self.fs)) / 3600.0
             count += 1
 
             # process data
             df = df.rolling(int(5 * self.fs)).median()  # run rolling median 5 second
-            df = np.arctan(df["Z"] / ((df["X"] ** 2 + df["Y"] ** 2) ** 0.5)) * (
+            df["angle"] = np.arctan(
+                df["Z"] / ((df["X"] ** 2 + df["Y"] ** 2) ** 0.5)
+            ) * (
                 180.0 / np.pi
             )  # get angle
-            df = df.resample("5s").mean().fillna(0)  # get 5 second average
+
+            df = (
+                df[["angle", "T"]].resample("5s").mean().fillna(0)
+            )  # get 5 second average
 
             # save intermediate data for plotting
-            df.to_hdf(
+            df["angle"].to_hdf(
                 self.sub_dst
-                + "/major_rest_period/5_second_average_arm_angle_day_{}.hdf".format(
+                + "/major_rest_period/5_second_average_arm_angle_day_{}.h5".format(
                     str(count).zfill(2)
                 ),
                 key="arm_angle_data_24hr",
                 mode="w",
             )
 
-            df = np.abs(df - df.shift(1))  # get absolute difference
-            df = self.roll_med(df, 60)  # run rolling median 5 minute
+            df["angle"] = np.abs(
+                df["angle"] - df["angle"].shift(1)
+            )  # get absolute difference
+            df_angle = self.roll_med(df["angle"], 60)  # run rolling median 5 minute
+            df_temp = self.roll_med(df["T"], 60)  # run rolling median 5 minute
 
-            thresh = (
-                np.percentile(df.Data.dropna().values, 10) * 15.0
-            )  # calculate threshold
-            df[df < thresh] = 0  # apply threshold
-            df[df >= thresh] = 1  # apply threshold
+            # calculate and apply threshold
+            thresh = np.min(
+                [
+                    np.max(
+                        [
+                            np.percentile(df_angle.Data.dropna().values, 10) * 15.0,
+                            self.minimum_rest_threshold,
+                        ]
+                    ),
+                    self.maximum_rest_threshold,
+                ]
+            )
+            df_angle.Data[df_angle.Data < thresh] = 0  # apply threshold
+            df_angle.Data[df_angle.Data >= thresh] = 1  # apply threshold
 
-            # drop rest blocks < 30 minutes
+            # drop rest periods where temperature is below the temp threshold
+            df_angle.Data[df_temp.Data <= self.min_t] = 1
+            df = df_angle
+
+            # drop rest blocks < minimum_rest_block minutes (except first and last)
             df["block"] = (df.Data.diff().ne(0)).cumsum()
-            for group in df.groupby(by="block"):
-                if group[1]["Data"].sum() == 0 and len(group[1]) < 360:
+            groups, iter_count = df.groupby(by="block"), 0
+            for group in groups:
+                iter_count += 1
+                if iter_count == 1 or iter_count == len(groups):
+                    continue
+                if (
+                    group[1]["Data"].sum() == 0
+                    and len(group[1]) < 12 * self.minimum_rest_block
+                ):
                     df.Data[group[1].index[0] : group[1].index[-1]] = 1
 
-            # drop active blocks < 60 minutes
+            # drop active blocks < allowed_rest_break minutes (except first and last)
             df["block"] = (df.Data.diff().ne(0)).cumsum()
-            for group in df.groupby(by="block"):
-                if len(group[1]) == group[1]["Data"].sum() and len(group[1]) < 720:
+            groups, iter_count = df.groupby(by="block"), 0
+            for group in groups:
+                iter_count += 1
+                if iter_count == 1 or iter_count == len(groups):
+                    continue
+                if (
+                    len(group[1]) == group[1]["Data"].sum()
+                    and len(group[1]) < 12 * self.allowed_rest_break
+                ):
                     df.Data[group[1].index[0] : group[1].index[-1]] = 0
 
             # get longest block
@@ -472,7 +550,7 @@ class SleepPy:
             df.drop(columns=["block"], inplace=True)
             df.to_hdf(
                 self.sub_dst
-                + "/major_rest_period/rest_periods_day_{}.hdf".format(
+                + "/major_rest_period/rest_periods_day_{}.h5".format(
                     str(count).zfill(2)
                 ),
                 key="rest_period_data_24hr",
@@ -505,6 +583,7 @@ class SleepPy:
             [
                 self.sub_dst + "/activity_index_days/" + i
                 for i in os.listdir(self.sub_dst + "/activity_index_days/")
+                if ".DS_Store" not in i
             ]
         )
         for day in days:
@@ -519,7 +598,7 @@ class SleepPy:
             df.drop(inplace=True, columns=["activity_index"])
             df.to_hdf(
                 self.sub_dst
-                + "/sleep_wake_predictions/sleep_wake_day_{}.hdf".format(
+                + "/sleep_wake_predictions/sleep_wake_day_{}.h5".format(
                     str(count).zfill(2)
                 ),
                 key="sleep_wake_data_24hr",
@@ -541,6 +620,7 @@ class SleepPy:
             [
                 self.sub_dst + "/sleep_wake_predictions/" + i
                 for i in os.listdir(self.sub_dst + "/sleep_wake_predictions/")
+                if ".DS_Store" not in i
             ]
         )
 
@@ -701,11 +781,12 @@ class SleepPy:
             os.mkdir(self.sub_dst + "/reports")  # set up output directory
         except OSError:
             pass
-        # raw (all 3 axes or vmag-1?)
+        # raw (all 3 axes, temp, light)
         rdays = sorted(
             [
                 self.sub_dst + "/raw_days/" + i
                 for i in os.listdir(self.sub_dst + "/raw_days/")
+                if ".DS_Store" not in i
             ]
         )
         # wear (no rescoring)
@@ -713,7 +794,7 @@ class SleepPy:
             [
                 self.sub_dst + "/wear_detection/" + i
                 for i in os.listdir(self.sub_dst + "/wear_detection/")
-                if "rescored" not in i and ".hdf" in i
+                if "rescored" not in i and ".h5" in i and ".DS_Store" not in i
             ]
         )
         # wear (with rescoring)
@@ -721,7 +802,7 @@ class SleepPy:
             [
                 self.sub_dst + "/wear_detection/" + i
                 for i in os.listdir(self.sub_dst + "/wear_detection/")
-                if "rescored" in i
+                if "rescored" in i and ".DS_Store" not in i
             ]
         )
         # major rest (arm angle)
@@ -729,7 +810,7 @@ class SleepPy:
             [
                 self.sub_dst + "/major_rest_period/" + i
                 for i in os.listdir(self.sub_dst + "/major_rest_period/")
-                if "angle" in i
+                if "angle" in i and ".DS_Store" not in i
             ]
         )
         # major rest (periods)
@@ -737,7 +818,7 @@ class SleepPy:
             [
                 self.sub_dst + "/major_rest_period/" + i
                 for i in os.listdir(self.sub_dst + "/major_rest_period/")
-                if "angle" not in i and "hdf" in i
+                if "angle" not in i and "h5" in i and ".DS_Store" not in i
             ]
         )
         # activity index (full 24 hours)
@@ -745,6 +826,7 @@ class SleepPy:
             [
                 self.sub_dst + "/activity_index_days/" + i
                 for i in os.listdir(self.sub_dst + "/activity_index_days/")
+                if ".DS_Store" not in i
             ]
         )
         # sleep wake (full 24 hours)
@@ -752,6 +834,7 @@ class SleepPy:
             [
                 self.sub_dst + "/sleep_wake_predictions/" + i
                 for i in os.listdir(self.sub_dst + "/sleep_wake_predictions/")
+                if ".DS_Store" not in i
             ]
         )
         # endpoints (graphs/charts per day)
@@ -763,7 +846,7 @@ class SleepPy:
         days = range(0, len(rdays))
         for day in days:
             # read the raw data, downsample for plotting
-            raw = pd.read_hdf(rdays[day])  # 10 millisecond period
+            raw = pd.read_hdf(rdays[day])
             raw = raw.resample("60s").median()
 
             # get shared index
@@ -828,7 +911,9 @@ class SleepPy:
             t_vals = [endpoints.loc[day + 1].values]
 
             # plotting
-            fig, (axt, ax0, ax1, ax2, ax3) = plt.subplots(5, 1, figsize=(30, 10))
+            fig, (axt, ax0, ax1, ax2, ax3, ax4, ax5) = plt.subplots(
+                7, 1, figsize=(30, 15)
+            )
             plt.suptitle(
                 "Visual Report for Source: {}\nDay: {}\nDate: {}".format(
                     self.src_name, day + 1, idx[0].date()
@@ -837,7 +922,7 @@ class SleepPy:
             )
             hours = mdates.HourLocator(interval=1)
             h_fmt = mdates.DateFormatter("%H:%M")
-            all_axes = (ax0, ax1, ax2, ax3)
+            all_axes = (ax0, ax1, ax2, ax3, ax4, ax5)
 
             # plot table
             tbl = axt.table(
@@ -854,32 +939,63 @@ class SleepPy:
             axt.axis("off")
 
             # plot raw
+            raw.rename(columns={"T": "Temperature", "LUX": "Light"}, inplace=True)
             raw[["X", "Y", "Z"]].plot(ax=ax0, lw=1).legend(
                 bbox_to_anchor=(0, 1), fontsize=20
             )
             ax0.set_ylabel("")
             ax0.set_xlabel("")
 
-            # plot activity index
-            aindex.plot(ax=ax1, lw=1, color="#6fc276").legend(
-                labels=["activity"], bbox_to_anchor=(0, 0.75), fontsize=20
+            # plot temperature
+            raw[["Temperature"]].plot(
+                ax=ax1, lw=1, color=sns.xkcd_rgb["pale red"]
+            ).legend(bbox_to_anchor=(0, 1), fontsize=20)
+            ax1.axhline(y=self.min_t, color="r", linestyle="--", lw=2)
+            props = dict(boxstyle="round", facecolor="lavender", alpha=0.35)
+            textstr = u"max: {}\xb0C\nmin: {}\xb0C\nthresh: {}\xb0C".format(
+                raw[["Temperature"]].max().values[0],
+                raw[["Temperature"]].min().values[0],
+                self.min_t,
+            )
+            ax1.text(
+                0.005,
+                0.95,
+                textstr,
+                transform=ax1.transAxes,
+                fontsize=14,
+                verticalalignment="top",
+                bbox=props,
             )
             ax1.set_ylabel("")
             ax1.set_xlabel("")
 
-            # plot arm angle
-            angle.plot(ax=ax2, lw=1, color="#b36ff6").legend(
-                labels=["arm angle"], bbox_to_anchor=(0, 0.75), fontsize=20
+            # plot light
+            raw[["Light"]].plot(ax=ax2, lw=1, color=sns.xkcd_rgb["pale orange"]).legend(
+                bbox_to_anchor=(0, 1), fontsize=20
             )
             ax2.set_ylabel("")
             ax2.set_xlabel("")
 
-            # plot dataframe of 4 streams
-            df.plot(ax=ax3, lw=8, x_compat=True).legend(
-                bbox_to_anchor=(0, 1.3), fontsize=20
+            # plot activity index
+            aindex.plot(ax=ax3, lw=1, color="#6fc276").legend(
+                labels=["activity"], bbox_to_anchor=(0, 0.75), fontsize=20
             )
             ax3.set_ylabel("")
             ax3.set_xlabel("")
+
+            # plot arm angle
+            angle.plot(ax=ax4, lw=1, color="#b36ff6").legend(
+                labels=["arm angle"], bbox_to_anchor=(0, 0.75), fontsize=20
+            )
+            ax4.set_ylabel("")
+            ax4.set_xlabel("")
+
+            # plot dataframe of 4 streams
+            df.plot(ax=ax5, lw=8, x_compat=True).legend(
+                bbox_to_anchor=(0, 1.3), fontsize=20
+            )
+            ax5.set_ylabel("")
+            ax5.set_xlabel("")
 
             # plot formatting
             plt.draw()
@@ -891,14 +1007,14 @@ class SleepPy:
                 ax.spines["bottom"].set_visible(False)
                 ax.spines["left"].set_visible(False)
                 ax.grid(False)
-                if count < 4:
+                if count < 6:
                     ax.get_xaxis().set_ticks([])
                 ax.get_yaxis().set_ticks([])
-            ax3.xaxis.set_major_locator(hours)
-            ax3.xaxis.set_major_formatter(h_fmt)
+            ax5.xaxis.set_major_locator(hours)
+            ax5.xaxis.set_major_formatter(h_fmt)
             plt.subplots_adjust(wspace=0, hspace=0)
             fig.autofmt_xdate()
-            for tick in ax3.xaxis.get_major_ticks():
+            for tick in ax5.xaxis.get_major_ticks():
                 tick.label.set_fontsize(16)
             plt.savefig(
                 self.sub_dst + "/reports/Visual_Results_Day_{}.pdf".format(day + 1)
@@ -1039,6 +1155,54 @@ class SleepPy:
                     ] = 0  # rescore the wear period as non wear
         df.drop(columns=["block"], inplace=True)
         return df
+
+    def aggregate_results(self):
+        """
+        Aggregates all results in a single folder.
+
+        """
+        try:
+            os.mkdir(self.sub_dst + "/results")  # set up output directory
+        except OSError:
+            pass
+
+        # collect results files
+        srcs = []
+        srcs += [
+            self.sub_dst + "/reports/" + x
+            for x in os.listdir(self.sub_dst + "/reports")
+            if ".DS_Store" not in x
+        ]
+        srcs += [
+            self.sub_dst + "/major_rest_period/" + x
+            for x in os.listdir(self.sub_dst + "/major_rest_period")
+            if ".csv" in x and ".DS_Store" not in x
+        ]
+        srcs += [
+            self.sub_dst + "/sleep_endpoints/" + x
+            for x in os.listdir(self.sub_dst + "/sleep_endpoints")
+            if ".DS_Store" not in x
+        ]
+
+        # aggregate
+        for src in srcs:
+            copy(src, self.sub_dst + "/results")
+
+    def clear_data(self):
+        """
+        Clears all intermediate data, keeping only results.
+
+        """
+        # collect directories for deletion
+        direcs = [
+            os.path.join(self.sub_dst, x)
+            for x in os.listdir(self.sub_dst)
+            if "results" not in x and ".DS_Store" not in x
+        ]
+
+        # delete
+        for direc in direcs:
+            rmtree(direc)
 
 
 class ColeKripke:
@@ -1243,7 +1407,7 @@ def bin2df(full_path):
                 )
                 decode = pd.DataFrame(
                     bins,
-                    columns=["X", "Y", "Z", "Light", "Button", "_"],
+                    columns=["X", "Y", "Z", "LUX", "Button", "_"],
                     index=pd.DatetimeIndex([time] * 300) + delta,
                 )
 
@@ -1263,10 +1427,10 @@ def bin2df(full_path):
                         (BitArray(bin=x).int * 100.0 - z_offset) / z_gain, 4
                     )
                 )
-                decode.Light = decode.Light.apply(lambda x: int(x, 2) * lux / volts)
+                decode.LUX = decode.LUX.apply(lambda x: int(x, 2) * lux / volts)
                 decode["T"] = temp
                 df.append(decode)
 
         df = pd.concat(df, axis=0)
         df.index.name = "Time"
-        return df[["X", "Y", "Z", "T"]]
+        return df[["X", "Y", "Z", "LUX", "T"]]

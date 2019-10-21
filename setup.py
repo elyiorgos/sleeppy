@@ -11,9 +11,14 @@ def requirements():
         return [x for x in fh.read().split("\n") if x]
 
 
+def get_version():
+    with open('sleeppy/version.py') as f:
+        return f.readlines()[-1].split()[-1].strip("\"'")
+
+
 setuptools.setup(
     name="sleeppy",
-    version="0.13",
+    version=get_version(),
     author="Yiorgos Christakis",
     author_email="elyiorgos@gmail.com",
     description="Python package for sleep analysis of raw accelerometer data from GeneActiv wrist watches",

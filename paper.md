@@ -60,7 +60,7 @@ Measures of sleep quality and quantity can provide valuable insights into the he
 # Outputs
 The user has access to all intermediate data, a table of sleep measures, and two kinds of visual reports.
 
-![Visual report showing various raw and processed data streams](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png)
+![Visual report showing various raw and processed data streams](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/Visual_Results_Day_1_paper.png)
 
 # Data Streams Report
 Raw and processed data streams generated at each stage of the processing pipeline are visualized in this report for each day (24 hour period, noon to noon). As shown in Figure 1, the report includes a source file name, number of the day in the sequence of days provided, start date of the data being shown, and a table of all calculated sleep measures for that day. Below the table are plots of raw and processed data streams.
@@ -84,7 +84,7 @@ The plots are laid out as follows:
 # Sleep Measures Report
 Sleep measures derived from the sleep/wake classifications for each day are provided in a table as well as a visual report (Figure 2).
 
-![Visual report showing a plot of sleep measures across all days.](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/summary_example.png)
+![Visual report showing a plot of sleep measures across all days.](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/summary_example_paper.png)
 
 Sleep measures table (.csv file) contains the following sleep measures for each night:
 

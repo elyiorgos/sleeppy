@@ -86,7 +86,8 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
 time at the beginning and end of the GeneActiv file. If a research site knows, for instance, that the watch will not be 
 on the subject for one hour at the beginning and end of the recorded session, that data can be excluded. The same can 
 also be done with the start and stop time arguments, which allow for the specification of a date and time for starting 
-and stopping the analysis. The formats for these arguments can be found in the sleep.py docs.
+and stopping the analysis. A description of the purpose and formats for these, and other arguments can be found in the 
+sleep.py docs.
 
 ```sh
 from sleeppy.sleep import *
@@ -94,10 +95,19 @@ from sleeppy.sleep import *
 SleepPy(input_file='/Users/user/input_files/data.csv',
         results_directory='/Users/user/Results/',
         sampling_frequency=100,
-        start_buffer='0s',
-        stop_buffer='0s',
-        start_time='',
-        stop_time='')
+        start_buffer="0s",
+        stop_buffer="0s",
+        start_time="",
+        stop_time="",
+        run_config=0,
+        temperature_threshold=25.0,
+        minimum_rest_block=30,
+        allowed_rest_break=60,
+        minimum_rest_threshold=0.0,
+        maximum_rest_threshold=1000.0,
+        minimum_hours=6,
+        clear_intermediate_data=False,
+        aws_object=None,
 ```
 
 ## Running the demo files
@@ -107,7 +117,7 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
 #### From the terminal window you can run the demo directly:
 
 ```sh
-cd sleeppy/sleeppy/demo
+cd sleeppy/sleeppy/tests
 python demo.py
 ```
 
@@ -122,8 +132,8 @@ python
 In the interpreter window you can then import and run the demo with the following two commands:
 
 ```sh
->>> import sleeppy.demo as demo
->>> demo.run_demo()
+>>> import sleeppy.tests as demo
+>>> tests.run_demo()
 ```
 
 The demo script will prompt you to type in a results directory, if simply testing you can type something like 
@@ -136,35 +146,37 @@ file type is .bin which adds a nontrivial amount to the processing time.
 ## Interpreting the results
 The most informative reports are the reports provided for each individual day, which resemble the image below (demo report):
 
-![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/sleeppy/demo/report_images/Visual_Results_Day_1.png)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/Visual_Results_Day_1_demo.png)
 
 As shown above, the report includes the source file name, the number of the day in the series of days provided, the 
 start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data 
 available during the 24-hour window specified. The subplots are set up to show the multiple forms that the data can 
 take during the analysis. They are layed out as follows:
 
-1.	XYZ: The first chart is a plot of the raw tri-axial accelerometer signals (X, Y, and Z).
+1.	XYZ: The raw tri-axial accelerometer signals (X, Y, and Z).
 
-2.	Activity index: The second chart is a plot of minute-by-minute activity index values, which reflect the intensity 
+2. Temperature: The near-body temperature reading of the wrist-worn device.
+
+3. Light: The light reading of the wrist-worn device over the specified period.
+
+4.	Activity index: The minute-by-minute activity index values, which reflect the intensity 
 of activity for each minute.
 
-3.	Arm-angle: The third chart is a plot of the arm-angle over 24 hours, this data stream is used to determine the 
+5.	Arm-angle: The arm-angle over 24 hours, this data stream is used to determine the 
 major rest period.
 
-4.	Wake: The fourth chart represents sleep/wake classification for the entire day. However, sleep measures are 
+6.	Wake: The sleep/wake classification for the entire day. However, sleep measures are 
 computed during the major rest period only.
 
-5.	Rest periods: The fifth chart is a plot of all rest periods detected by the algorithm. Only the longest rest 
+7.	Rest periods: All rest periods detected by the algorithm. Only the longest rest 
 period (i.e. major rest period) is used for calculating sleep measures.
 
-6.	On-body: The sixth chart is a plot of all periods identified by the on-body detection algorithm (without filtering 
+8.	On-body: All periods identified by the on-body detection algorithm (without filtering 
 or re-scoring).
 
-7.	On-body (re-scored): The seventh chart is a plot of the on-body periods after re-scoring has been applied.
+9.	On-body (re-scored): The on-body periods after re-scoring has been applied.
 
 #### Note: There is no logic tying either on-body detection to the calculation of sleep endpoints. The on-body detection is currently used *only* as a visual aid to determine possible sources of error in major rest period calculation.
-
-#### As a result of the above, reliable results can be produced in only those cases where there is close to 100% wear compliance during a given 24-hour period, even as little as 1 hour of non wear can have a serious detrimental impact on the proper detection of the major rest period, and all subsequent clinical endpoints.
 
 #### Suggested use of the current package is to evaluate the results of each day visually, to ensure that the proper/expected behavior is in fact what is being produced.
 
