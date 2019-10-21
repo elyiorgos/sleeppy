@@ -4,9 +4,9 @@ import numpy as np
 import matplotlib
 
 try:
-    matplotlib.use("TkAgg")
+    matplotlib.use("Agg")
 except Exception as e:
-    print("Error: could not use TkAgg as backend")
+    print("Error: could not use Agg as backend")
     pass
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
