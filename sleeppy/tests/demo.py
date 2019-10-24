@@ -8,11 +8,18 @@ def run_demo(binder_demo=False):
     src = __file__.split(".py")[0] + ".bin"
     dst = raw_input("Please provide a path to a results directory:    ")
     while not os.path.isdir(dst):
-        dst = raw_input(
-            "\nYour previous entry was not appropriate."
-            "\nIt should follow a format similar to /Users/username/Desktop/Results"
-            "\nPlease provide a path to a results directory:    "
-        )
+        if not binder_demo:
+            dst = raw_input(
+                "\nYour previous entry was not appropriate."
+                "\nIt should follow a format similar to /Users/username/Desktop/Results"
+                "\nPlease provide a path to a results directory:    "
+            )
+        else:
+            dst = raw_input(
+                "\nYour previous entry was not appropriate."
+                "\nIt should follow a format similar to /home/jovyan/example_notebook"
+                "\nPlease provide a path to a results directory:    "
+            )
 
     st = time.time()
     try:
