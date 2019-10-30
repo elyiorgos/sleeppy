@@ -38,7 +38,7 @@ setuptools.setup(
         "christakis",
     ],
     classifiers=[
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
     ],
     license="MIT",

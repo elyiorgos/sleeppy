@@ -1,5 +1,5 @@
 # SleepPy
-A Python(2.7) package for sleep analysis from accelerometer data
+A Python(3.7) package for sleep analysis from accelerometer data
 
 ## Overview
 Measures of sleep quality and quantity can provide valuable insights into the health and well-being of an individual. 
@@ -10,7 +10,7 @@ over the years. However, implementation of these algorithms is not widely availa
 adoption of wearable devices in clinical research.
 
 ``SleepPy`` is an open source python package incorporating several published algorithms in a modular framework and 
-providing a suite of measures for the assessment of sleep quantity and quality. The package can process multi-day 
+providing a suite of measures for the assessment of sleep quantity. The package can process multi-day 
 streams of raw accelerometer data (X, Y & Z) from wrist-worn wearable devices to produce sleep reports and 
 visualizations for each recording day (24-hour period). The reports are formatted to facilitate statistical 
 analysis of sleep measures. Visualization acts as a quick debugging tool, provides insights into sleep patterns of 
@@ -47,25 +47,25 @@ pip install -r requirements.txt
 
 
 ## What does SleepPy do?
-``SleepPy`` follows seven steps when processing data:
+``SleepPy`` follows several steps when processing data:
 
-1.	Split data by day: Load raw accelerometer data from input file and split it into 24-hour segments (noon to noon).
+1.	Load data: Geneactiv data is read into memory, downsampled to 20hz (if necessary), and split by 24 hour day measured
+from noon to noon.
 
-2.	Derive activity index: Calculate activity index for each 1 minute epoch of the day.
+2.	Identify major rest period: Estimate the major rest period (i.e. sleep window) for each day.
 
-3.	Perform off-body detection: Run off-body detection algorithm and generate a label (on or off body) for each 15 
-minute epoch of the day.
+3.	Derive activity index: Calculate activity index for each 1 minute epoch of the day.
 
-4.	Identify major rest period: Estimate the major rest period (i.e. sleep window) for each day.
-
-5.	Perform sleep/wake classification: Run sleep/wake classification algorithm to generate sleep/wake labels for each 
+4.	Perform sleep/wake classification: Run sleep/wake classification algorithm to generate sleep/wake labels for each 
 1 minute epoch of the day.
 
-6.	Calculate sleep measures: Calculate sleep measures based on sleep/wake states only during the major rest period for 
+5.	Calculate sleep measures: Calculate sleep measures based on sleep/wake states only during the major rest period for 
 each day.
 
-7.	Generate reports and visualizations: Create a set of tables and charts for analysis and presentation of processed 
+6.	Generate reports and visualizations: Create a set of tables and charts for analysis and presentation of processed 
 outputs and sleep measures for each day.
+
+7. Export data: Exports relevant clinical data to .csv files.
 
 ## How to run SleepPy
 SleepPy is designed for ease of use in a research environment, and therefore attempts to remove as much of the burden 
@@ -75,39 +75,37 @@ well as the raw .csv outputs of the GeneActiv software. Processing the .bin file
 processing time to the running of SleepPy, and for quick results we recommend using the .csv version where possible.
 
 ```sh
-from sleeppy.sleep import *
+from sleeppy.sleep import SleepPy
 
 SleepPy(input_file='/Users/user/input_files/data.csv',
         results_directory='/Users/user/Results/',
-        sampling_frequency=100)
+        sampling_frequency=100.).run()
 ```
 
 ``SleepPy`` can also be run with the following arguments. Start and stop buffer allow for the specification of ignored 
 time at the beginning and end of the GeneActiv file. If a research site knows, for instance, that the watch will not be 
 on the subject for one hour at the beginning and end of the recorded session, that data can be excluded. The same can 
 also be done with the start and stop time arguments, which allow for the specification of a date and time for starting 
-and stopping the analysis. A description of the purpose and formats for these, and other arguments can be found in the 
+and stopping the analysis. A description of the purpose and formats for these and other arguments, can be found in the 
 sleep.py docs.
 
 ```sh
-from sleeppy.sleep import *
+from sleeppy.sleep import SleepPy
 
 SleepPy(input_file='/Users/user/input_files/data.csv',
         results_directory='/Users/user/Results/',
-        sampling_frequency=100,
+        sampling_frequency=100.,
+        aws_object=None,
         start_buffer="0s",
         stop_buffer="0s",
         start_time="",
         stop_time="",
-        run_config=0,
         temperature_threshold=25.0,
         minimum_rest_block=30,
         allowed_rest_break=60,
         minimum_rest_threshold=0.0,
         maximum_rest_threshold=1000.0,
-        minimum_hours=6,
-        clear_intermediate_data=False,
-        aws_object=None,
+        minimum_hours=6,).run()
 ```
 
 ## Running the demo files
@@ -171,17 +169,8 @@ computed during the major rest period only.
 7.	Rest periods: All rest periods detected by the algorithm. Only the longest rest 
 period (i.e. major rest period) is used for calculating sleep measures.
 
-8.	On-body: All periods identified by the on-body detection algorithm (without filtering 
-or re-scoring).
-
-9.	On-body (re-scored): The on-body periods after re-scoring has been applied.
-
-#### Note: There is no logic tying either on-body detection to the calculation of sleep endpoints. The on-body detection is currently used *only* as a visual aid to determine possible sources of error in major rest period calculation.
-
-#### Suggested use of the current package is to evaluate the results of each day visually, to ensure that the proper/expected behavior is in fact what is being produced.
-
 ## References
-#### The major rest period detection and wear detection functions of this package are based off of the following papers, as well as their implementation in the R package GGIR:
+#### The major rest period detection is based off of the following papers, as well as their implementation in the R package GGIR:
 
 van Hees V, Fang Z, Zhao J, Heywood J, Mirkes E, Sabia S, Migueles J (2019). GGIR: Raw Accelerometer Data Analysis.
 doi: 10.5281/zenodo.1051064, R package version 1.9-1, https://CRAN.R-project.org/package=GGIR.
