@@ -6,7 +6,7 @@ Measures of sleep quality and quantity can provide valuable insights into the he
 Traditionally, sleep assessments are performed in the clinic/hospital setting using polysomnography tests. 
 Recent advances in wearable sensor technology have enabled objective assessment of sleep at home. 
 Actigraphy has been widely used for this purpose and several algorithms have been published in the literature 
-over the years. However, implementation of these algorithms is not widely available, which creates a barrier for wider 
+over the years. However, implementations of these algorithms are not widely available, which creates a barrier for wider 
 adoption of wearable devices in clinical research.
 
 ``SleepPy`` is an open source python package incorporating several published algorithms in a modular framework and 
@@ -14,7 +14,7 @@ providing a suite of measures for the assessment of sleep quantity. The package 
 streams of raw accelerometer data (X, Y & Z) from wrist-worn wearable devices to produce sleep reports and 
 visualizations for each recording day (24-hour period). The reports are formatted to facilitate statistical 
 analysis of sleep measures. Visualization acts as a quick debugging tool, provides insights into sleep patterns of 
-individual subjects and can be used for presentation of data to diverse audiences.
+individual subjects, and can be used for presentation of data to diverse audiences.
 
 ## Requirements
 ``SleepPy`` can be installed through pip, which will handle requirement installation for you (please note that SleepPy 
@@ -33,7 +33,7 @@ cd sleeppy
 python setup.py install
 ```
 
-If given a permissions error, you may have to run the following and input your password:
+If given a permissions error, you may have to run the following and input your credentials:
 
 ```sh
 sudo python setup.py install
@@ -68,11 +68,11 @@ outputs and sleep measures for each day.
 7. Export data: Exports relevant clinical data to .csv files.
 
 ## How to run SleepPy
-SleepPy is designed for ease of use in a research environment, and therefore attempts to remove as much of the burden 
+SleepPy is designed for ease of use in a research environment and therefore attempts to remove as much of the burden 
 as possible from the user. The following syntax will run ``SleepPy`` in full and generate all necessary data and 
-reports, saving all intermediate data in various folders. ``SleepPy`` can be run with both GeneActiv .bin files, as 
+reports. ``SleepPy`` can be run with both GeneActiv .bin files, as 
 well as the raw .csv outputs of the GeneActiv software. Processing the .bin files adds a non trivial amount of 
-processing time to the running of SleepPy, and for quick results we recommend using the .csv version where possible.
+processing time to the running of SleepPy, and for faster results we recommend using the .csv version where possible.
 
 ```sh
 from sleeppy.sleep import SleepPy
@@ -82,12 +82,8 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
         sampling_frequency=100.).run()
 ```
 
-``SleepPy`` can also be run with the following arguments. Start and stop buffer allow for the specification of ignored 
-time at the beginning and end of the GeneActiv file. If a research site knows, for instance, that the watch will not be 
-on the subject for one hour at the beginning and end of the recorded session, that data can be excluded. The same can 
-also be done with the start and stop time arguments, which allow for the specification of a date and time for starting 
-and stopping the analysis. A description of the purpose and formats for these and other arguments, can be found in the 
-sleep.py docs.
+``SleepPy`` can also be run with all of the following arguments. A description of the purpose and formats for these and 
+other arguments, can be found in the sleep.py docs.
 
 ```sh
 from sleeppy.sleep import SleepPy
@@ -138,13 +134,13 @@ The demo script will prompt you to type in a results directory, if simply testin
 /Users/username/Desktop to have the results saved to your desktop.
 
 Any of the above should take approximately 10-15 minutes, though depending on your machine this may vary. It should 
-generate and save all intermediate data, as well as all the relevant reports. Due to file size constraints, the demo 
-file type is .bin which adds a nontrivial amount to the processing time.
+generate and save both the visual reports and the endpoint table. Due to file size constraints, the demo 
+file type is .bin which, though better compressed, is more time intensive to load into memory.
 
 ## Interpreting the results
 The most informative reports are the reports provided for each individual day, which resemble the image below (demo report):
 
-![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/Visual_Results_Day_1_demo.png)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/demo_visual_report.png)
 
 As shown above, the report includes the source file name, the number of the day in the series of days provided, the 
 start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data 

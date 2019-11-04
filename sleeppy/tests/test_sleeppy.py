@@ -86,12 +86,16 @@ class TestSleepPy(unittest.TestCase):
         # RUN VISUALIZATION
         sleep.visualize()
 
-        check = input("Are the visualizations satisfactory [y/N]:    ")
+        # check = input("Are the visualizations satisfactory [y/N]:    ")
+        check = "N"
         while check != "y" and check != "N":
             print("Please answer with 'y' for yes, or 'N' for no.")
             check = input("Is the visualization satisfactory [y/N]:    ")
 
-        self.assertTrue((True if check == "y" else False))
+        self.assertTrue(
+            (True if check == "y" else False),
+            msg="Comment out line 90 and use line 89 to run a manual visualization check",
+        )
 
     def test_export(self):
         # DUMMY DATA

@@ -318,30 +318,30 @@ class SleepPy(object):
                 periods=1440,
                 freq="60s",
             )
-            raw = raw.reindex(idx, fill_value=float("nan"))
+            raw = raw.reindex(idx, fill_value=np.nan)
 
             # ACTIVITY INDEX
             act = self.activity_index_days[day]
             act = act.resample("60s").max()
-            act = act.reindex(idx, fill_value=float("nan"))
+            act = act.reindex(idx, fill_value=np.nan)
 
             # ARM ANGLE
             ang = self.arm_angle_days[day]
             ang = ang.resample("60s").max()
-            ang = ang.reindex(idx, fill_value=float("nan"))
+            ang = ang.reindex(idx, fill_value=np.nan)
 
             # SLEEP WAKE PREDICTIONS
             swp = self.sleep_wake_prediction_days[day]
-            swp[swp == 0] = float("nan")
+            swp[swp == 0] = np.nan
             swp = swp.resample("60s").max()
-            swp = swp.reindex(idx, fill_value=float("nan"))
+            swp = swp.reindex(idx, fill_value=np.nan)
 
             # REST PERIODS
             rps = self.rest_period_days[day]
-            rps[rps == 1] = float("nan")
+            rps[rps == 1] = np.nan
             rps[rps == 0] = 1
             rps = rps.resample("60s").max()
-            rps = rps.reindex(idx, fill_value=float("nan"))
+            rps = rps.reindex(idx, fill_value=np.nan)
 
             # DATAFRAME FOR STRAIGHT LINES
             df = swp.copy()
@@ -397,7 +397,16 @@ class SleepPy(object):
             raw[["Temperature"]].plot(
                 ax=ax1, lw=1, color=sns.xkcd_rgb["pale red"]
             ).legend(bbox_to_anchor=(0, 1), fontsize=20)
-            ax1.axhline(y=self.min_t, color="r", linestyle="--", lw=2)
+            idx_first = raw.Temperature.first_valid_index()
+            idx_last = raw.Temperature.last_valid_index()
+            ax1.hlines(
+                y=self.min_t,
+                xmin=idx_first,
+                xmax=idx_last,
+                color="r",
+                linestyle="--",
+                lw=2,
+            )
             props = dict(boxstyle="round", facecolor="lavender", alpha=0.35)
             textstr = u"max: {}\xb0C\nmin: {}\xb0C\nthresh: {}\xb0C".format(
                 np.round(raw[["Temperature"]].max().values[0], decimals=2),
@@ -460,7 +469,6 @@ class SleepPy(object):
         plt.close()
 
         # SUMMARY REPORT
-
         fig, (ax0, ax1, ax2, ax3, ax4) = plt.subplots(5, 1, figsize=(12, 12))
         plt.suptitle("Summary Report for Source: {}".format(self.src_name), fontsize=16)
         all_axes = (ax0, ax1, ax2, ax3, ax4)
