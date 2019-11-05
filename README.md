@@ -112,7 +112,7 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
 
 ## Running the demo files
 #### Try it out with binder
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/elyiorgos/sleeppy/master?filepath=example_notebook%2Fexample.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/elyiorgos/sleeppy/sleeppy2?urlpath=https%3A%2F%2Fgithub.com%2Felyiorgos%2Fsleeppy%2Fblob%2Fsleeppy2%2Fexample_notebook%2Fexample.ipynb)
 
 #### From the terminal window you can run the demo directly:
 
@@ -146,7 +146,7 @@ file type is .bin which adds a nontrivial amount to the processing time.
 ## Interpreting the results
 The most informative reports are the reports provided for each individual day, which resemble the image below (demo report):
 
-![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/master/images/Visual_Results_Day_1_demo.png)
+![Demo Report](https://raw.githubusercontent.com/elyiorgos/sleeppy/sleeppy2/images/Visual_Results_Day_1_demo.png)
 
 As shown above, the report includes the source file name, the number of the day in the series of days provided, the 
 start date of the data being shown, and a table of all calculated endpoints. Below the table is a graph of the data 
@@ -207,12 +207,12 @@ Data and Its Comparison with Other Activity Metrics. PLoS ONE 11(8): e0160644.
 https://doi.org/10.1371/journal.pone.0160644
 
 ## Contributing to the project
-We welcome and encourage project contributions! Please see the [CONTRIBUTING.md](https://github.com/elyiorgos/sleeppy/blob/master/CONTRIBUTING.md) file for details.
+We welcome and encourage project contributions! Please see the [CONTRIBUTING.md](https://github.com/elyiorgos/sleeppy/blob/sleeppy2/CONTRIBUTING.md) file for details.
 
 ## Author
 Yiorgos Christakis
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/elyiorgos/sleeppy/blob/master/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/elyiorgos/sleeppy/blob/sleeppy2/LICENSE.md) file for details
 
 
