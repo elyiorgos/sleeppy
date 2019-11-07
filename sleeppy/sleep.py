@@ -233,7 +233,7 @@ class SleepPy(object):
 
         """
         for day in self.raw_days:
-            mrp = MajorRestPeriod(day.copy(), 20.0)
+            mrp = MajorRestPeriod(day.copy(), self.fs)
             mrp.run()
             self.arm_angle_days.append(mrp.df_angle)
             self.rest_period_days.append(mrp.rest_periods)
@@ -495,15 +495,25 @@ class SleepPy(object):
         ]
 
         # TOTAL SLEEP TIME
-        endpoints.total_sleep_time.plot.bar(ax=ax0, title="")
+        endpoints.total_sleep_time.plot.bar(
+            ax=ax0, title="", color=["C" + str(i) for i in range(len(endpoints))]
+        )
         # PERCENT TIME ASLEEP
-        endpoints.percent_time_asleep.plot.bar(ax=ax1, title="")
+        endpoints.percent_time_asleep.plot.bar(
+            ax=ax1, title="", color=["C" + str(i) for i in range(len(endpoints))]
+        )
         # WAKE AFTER SLEEP ONSET
-        endpoints.waso.plot.bar(ax=ax2, title="")
+        endpoints.waso.plot.bar(
+            ax=ax2, title="", color=["C" + str(i) for i in range(len(endpoints))]
+        )
         # SLEEP ONSET LATENCY
-        endpoints.sleep_onset_latency.plot.bar(ax=ax3, title="")
+        endpoints.sleep_onset_latency.plot.bar(
+            ax=ax3, title="", color=["C" + str(i) for i in range(len(endpoints))]
+        )
         # NUMBER OF WAKE BOUTS
-        endpoints.number_wake_bouts.plot.bar(ax=ax4, title="")
+        endpoints.number_wake_bouts.plot.bar(
+            ax=ax4, title="", color=["C" + str(i) for i in range(len(endpoints))]
+        )
         # FORMAT
         count = 0
         for ax in all_axes:

@@ -105,6 +105,6 @@ The software is available as a pip installable package, as well as on GitHub at:
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
 # License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/elyiorgos/sleeppy/blob/master/LICENSE.md) file for details
 
 # References

@@ -12,7 +12,7 @@ def requirements():
 
 
 def get_version():
-    with open('sleeppy/version.py') as f:
+    with open("sleeppy/version.py") as f:
         return f.readlines()[-1].split()[-1].strip("\"'")
 
 

@@ -111,8 +111,8 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
 #### From the terminal window you can run the demo directly:
 
 ```sh
-cd sleeppy/sleeppy/tests
-python demo.py
+cd sleeppy/sleeppy/test
+python test_demo.py
 ```
 
 #### You can also run the demo through the python interpreter:
@@ -126,8 +126,8 @@ python
 In the interpreter window you can then import and run the demo with the following two commands:
 
 ```sh
->>> import sleeppy.tests as demo
->>> tests.run_demo()
+>>> import sleeppy.test.test_demo as demo
+>>> demo.test_demo()
 ```
 
 The demo script will prompt you to type in a results directory, if simply testing you can type something like 

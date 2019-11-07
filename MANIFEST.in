@@ -1,10 +1,10 @@
 include README.md
 include requirements.txt
 include LICENSE
-include sleeppy/tests/demo.bin
-include sleeppy/tests/demo.py
-include sleeppy/tests/test_data/*
-include sleeppy/tests/test_colekripke.py
-include sleeppy/tests/test_majorrest.py
-include sleeppy/tests/test_sleeppy.py
-include sleeppy/tests/test_utils.py
+include sleeppy/test/test_data/demo.bin
+include sleeppy/test/demo.py
+include sleeppy/test/test_data/*
+include sleeppy/test/test_colekripke.py
+include sleeppy/test/test_majorrest.py
+include sleeppy/test/test_sleeppy.py
+include sleeppy/test/test_utils.py
