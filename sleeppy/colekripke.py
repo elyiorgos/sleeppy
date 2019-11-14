@@ -8,7 +8,7 @@ class ColeKripke(object):
 
     """
 
-    def __init__(self, activity_index, sf=0.193125):
+    def __init__(self, activity_index, sf=0.243):
 
         """
         Class initialization.
@@ -20,7 +20,7 @@ class ColeKripke(object):
         sf : float
             Scale factor to use for the predictions (default corresponds to scale factor optimized for use with
             the activity index, if other activity measures are desired the scale factor can be modified or optimized.)
-            The recommended range for the scale factor is between 0.1 and 0.25 depending on the sensitivity to activity
+            The recommended range for the scale factor is between 0.15 and 0.3 depending on the sensitivity to activity
             desired, and possibly the population being observed.
 
         """
