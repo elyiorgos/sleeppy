@@ -194,6 +194,9 @@ https://doi.org/10.1371/journal.pone.0160644
 ## Contributing to the project
 We welcome and encourage project contributions! Please see the [CONTRIBUTING.md](https://github.com/elyiorgos/sleeppy/blob/master/CONTRIBUTING.md) file for details.
 
+## Acknowledgements
+The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
+
 ## Author
 Yiorgos Christakis
 
