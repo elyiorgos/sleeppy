@@ -558,11 +558,18 @@ class SleepPy(object):
         days = list(range(0, len(self.raw_days_to_plot)))
         export_df = []
         for day in days:
-            export_df.append(
-                [str(self.major_rest_periods[day][0].date())]
-                + self.endpoints[day + 1]
-                + [str(i) for i in self.major_rest_periods[day]]
-            )
+            if self.major_rest_periods[day]:
+                export_df.append(
+                    [str(self.raw_days_to_plot[day].index[0].date())]
+                    + self.endpoints[day + 1]
+                    + [str(i) for i in self.major_rest_periods[day]]
+                )
+            else:
+                export_df.append(
+                    [str(self.raw_days_to_plot[day].index[0].date())]
+                    + self.endpoints[day + 1]
+                    + ["None Detected", "None Detected"]
+                )
         export_df = pd.DataFrame(export_df)
         export_df.columns = header
         export_df.to_csv(
