@@ -137,7 +137,7 @@ class MajorRestPeriod(object):
 
         # LONGEST BLOCK
         df["block"] = (df.z_angle.diff().ne(0)).cumsum()
-        best = 0
+        best = 1
         for group in df.groupby(by="block"):
             if group[1]["z_angle"].sum() == 0 and len(group[1]) > best:
                 best = len(group[1])
