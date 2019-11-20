@@ -16,7 +16,7 @@ class MajorRestPeriod(object):
         fs,
         temperature_threshold=25.0,
         minimum_rest_block=30,
-        allowed_rest_break=180,
+        allowed_rest_break=60,
         minimum_rest_threshold=0.1,
         maximum_rest_threshold=1000.0,
     ):
@@ -104,7 +104,7 @@ class MajorRestPeriod(object):
 
         # DROP REST PERIODS WITH TEMP TOO LOW
         df_angle.z_angle[df_temp["T"] <= self.min_t] = 1
-        df = df_angle
+        df = df_angle.fillna(value=1)
 
         # DROP REST BLOCKS < MIN
         df["block"] = (df.z_angle.diff().ne(0)).cumsum()

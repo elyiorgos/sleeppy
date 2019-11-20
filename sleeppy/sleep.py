@@ -233,7 +233,15 @@ class SleepPy(object):
 
         """
         for day in self.raw_days:
-            mrp = MajorRestPeriod(day.copy(), self.fs)
+            mrp = MajorRestPeriod(
+                day.copy(),
+                self.fs,
+                minimum_rest_block=self.minimum_rest_block,
+                minimum_rest_threshold=self.minimum_rest_threshold,
+                allowed_rest_break=self.allowed_rest_break,
+                temperature_threshold=self.min_t,
+                maximum_rest_threshold=self.maximum_rest_threshold,
+            )
             mrp.run()
             self.arm_angle_days.append(mrp.df_angle)
             self.rest_period_days.append(mrp.rest_periods)
@@ -466,7 +474,7 @@ class SleepPy(object):
                 tick.label1.set_fontsize(16)
             pdf.savefig(fig.number)
         pdf.close()
-        plt.close()
+        plt.close("all")
 
         # SUMMARY REPORT
         fig, (ax0, ax1, ax2, ax3, ax4) = plt.subplots(5, 1, figsize=(12, 12))
@@ -546,7 +554,7 @@ class SleepPy(object):
         plt.xticks(fontsize=20)
         plt.draw()
         plt.savefig(self.dst + "/{}_summary_report.pdf".format(self.src_name))
-        plt.close()
+        plt.close("all")
         return
 
     def export(self):
@@ -570,6 +578,7 @@ class SleepPy(object):
                     + self.endpoints[day + 1]
                     + ["None Detected", "None Detected"]
                 )
+
         export_df = pd.DataFrame(export_df)
         export_df.columns = header
         export_df.to_csv(
