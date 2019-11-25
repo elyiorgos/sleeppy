@@ -73,9 +73,10 @@ class SleepPy(object):
         temperature_threshold=25.0,
         minimum_rest_block=30,
         allowed_rest_break=60,
-        minimum_rest_threshold=0.0,
+        minimum_rest_threshold=0.1,
         maximum_rest_threshold=1000.0,
         minimum_hours=6,
+        plot=True,
     ):
         """
         Class initialization.
@@ -110,7 +111,8 @@ class SleepPy(object):
             Maximum allowed threshold for determining major rest period.
         minimum_hours : float
             Minimum number of hours required to consider a day useable.
-
+        plot : boolean
+            True triggers plotting of data.
         """
         if aws_object is not None:
             self.src = aws_object
@@ -133,6 +135,7 @@ class SleepPy(object):
         self.minimum_rest_threshold = minimum_rest_threshold
         self.maximum_rest_threshold = maximum_rest_threshold
         self.minimum_hours = minimum_hours
+        self.plot = plot
 
         # DATA
         self.raw_days = []
@@ -165,8 +168,9 @@ class SleepPy(object):
         self.calculate_sleep_predictions()
         print("Calculating sleep endpoints...")
         self.calculate_endpoints()
-        print("Building plots...")
-        self.visualize()
+        if self.plot:
+            print("Building plots...")
+            self.visualize()
         print("Exporting results...")
         self.export()
 
