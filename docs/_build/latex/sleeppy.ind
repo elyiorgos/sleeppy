@@ -1,0 +1,84 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{activity\_index()}\spxextra{in module sleeppy.utils}, \hyperpage{3}
+  \item \spxentry{apply\_kernel()}\spxextra{sleeppy.colekripke.ColeKripke method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{bin2df()}\spxextra{in module sleeppy.utils}, \hyperpage{4}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{calculate\_endpoints()}\spxextra{sleeppy.sleep.SleepPy method}, \hyperpage{3}
+  \item \spxentry{calculate\_major\_rest\_periods()}\spxextra{sleeppy.sleep.SleepPy method}, 
+		\hyperpage{3}
+  \item \spxentry{calculate\_sleep\_predictions()}\spxextra{sleeppy.sleep.SleepPy method}, 
+		\hyperpage{3}
+  \item \spxentry{ColeKripke}\spxextra{class in sleeppy.colekripke}, \hyperpage{1}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{downsample()}\spxextra{in module sleeppy.utils}, \hyperpage{4}
+  \item \spxentry{downsample\_by\_mean()}\spxextra{in module sleeppy.utils}, \hyperpage{4}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{export()}\spxextra{sleeppy.sleep.SleepPy method}, \hyperpage{3}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{high\_pass\_filter()}\spxextra{in module sleeppy.utils}, \hyperpage{4}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{load()}\spxextra{sleeppy.sleep.SleepPy method}, \hyperpage{3}
+  \item \spxentry{load\_geneactiv\_csv()}\spxextra{in module sleeppy.utils}, \hyperpage{4}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{MajorRestPeriod}\spxextra{class in sleeppy.majorrest}, \hyperpage{2}
+  \item \spxentry{make\_dummy\_data()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{non\_overlapping\_windows()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+  \item \spxentry{number\_of\_wake\_bouts()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{percent\_time\_asleep()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+  \item \spxentry{predict()}\spxextra{sleeppy.colekripke.ColeKripke method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{rescore()}\spxextra{sleeppy.colekripke.ColeKripke method}, \hyperpage{1}
+  \item \spxentry{run()}\spxextra{sleeppy.majorrest.MajorRestPeriod method}, \hyperpage{2}
+  \item \spxentry{run()}\spxextra{sleeppy.sleep.SleepPy method}, \hyperpage{3}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{sleep\_onset\_latency()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+  \item \spxentry{SleepPy}\spxextra{class in sleeppy.sleep}, \hyperpage{2}
+  \item \spxentry{sleeppy.colekripke}\spxextra{module}, \hyperpage{1}
+  \item \spxentry{sleeppy.majorrest}\spxextra{module}, \hyperpage{2}
+  \item \spxentry{sleeppy.sleep}\spxextra{module}, \hyperpage{2}
+  \item \spxentry{sleeppy.utils}\spxextra{module}, \hyperpage{3}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{total\_sleep\_time()}\spxextra{in module sleeppy.utils}, \hyperpage{5}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{visualize()}\spxextra{sleeppy.sleep.SleepPy method}, \hyperpage{3}
+
+  \indexspace
+  \bigletter W
+  \item \spxentry{wake\_after\_sleep\_onset()}\spxextra{in module sleeppy.utils}, \hyperpage{6}
+
+\end{sphinxtheindex}

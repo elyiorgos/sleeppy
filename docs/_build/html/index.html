@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to SleepPy’s documentation! &#8212; SleepPy 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">SleepPy 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-sleeppy-s-documentation">
+<h1>Welcome to SleepPy’s documentation!<a class="headerlink" href="#welcome-to-sleeppy-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="sleeppy-package">
+<h1>SleepPy package<a class="headerlink" href="#sleeppy-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-sleeppy.colekripke">
+<span id="sleeppy-colekripke-module"></span><h2>sleeppy.colekripke module<a class="headerlink" href="#module-sleeppy.colekripke" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sleeppy.colekripke.ColeKripke">
+<em class="property">class </em><code class="sig-prename descclassname">sleeppy.colekripke.</code><code class="sig-name descname">ColeKripke</code><span class="sig-paren">(</span><em class="sig-param">activity_index</em>, <em class="sig-param">sf=0.243</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.colekripke.ColeKripke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Runs sleep wake detection on epoch level activity data. Epochs are 1 minute long and activity is represented
+by an activity index.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.colekripke.ColeKripke.apply_kernel" title="sleeppy.colekripke.ColeKripke.apply_kernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_kernel</span></code></a>(self)</p></td>
+<td><p>Runs the prediction of sleep wake states based on activity index data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sleeppy.colekripke.ColeKripke.predict" title="sleeppy.colekripke.ColeKripke.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(self)</p></td>
+<td><p>Runs full algorithm:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.colekripke.ColeKripke.rescore" title="sleeppy.colekripke.ColeKripke.rescore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescore</span></code></a>(self)</p></td>
+<td><p>Application of Webster’s rescoring rules as described in the Cole-Kripke paper.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sleeppy.colekripke.ColeKripke.apply_kernel">
+<code class="sig-name descname">apply_kernel</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.colekripke.ColeKripke.apply_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the prediction of sleep wake states based on activity index data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Sleep/wake predictions from a Cole-Kripke based algorithm.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.colekripke.ColeKripke.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.colekripke.ColeKripke.predict" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Runs full algorithm:</dt><dd><p>Predict sleep/wake states using Cole-Kripke’s optimal kernel with specified scale factor.
+Rescore predictions based on Webster’s rules.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rescored_predictions</strong><span class="classifier">array-like</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.colekripke.ColeKripke.rescore">
+<code class="sig-name descname">rescore</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.colekripke.ColeKripke.rescore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Application of Webster’s rescoring rules as described in the Cole-Kripke paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rescored</strong><span class="classifier">array-like</span></dt><dd><p>Array of rescored sleep/wake predictions</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sleeppy.majorrest">
+<span id="sleeppy-majorrest-module"></span><h2>sleeppy.majorrest module<a class="headerlink" href="#module-sleeppy.majorrest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sleeppy.majorrest.MajorRestPeriod">
+<em class="property">class </em><code class="sig-prename descclassname">sleeppy.majorrest.</code><code class="sig-name descname">MajorRestPeriod</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">fs</em>, <em class="sig-param">temperature_threshold=25.0</em>, <em class="sig-param">minimum_rest_block=30</em>, <em class="sig-param">allowed_rest_break=60</em>, <em class="sig-param">minimum_rest_threshold=0.1</em>, <em class="sig-param">maximum_rest_threshold=1000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.majorrest.MajorRestPeriod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculates the major rest period on a single day (24 hours) of geneactiv accelerometer data.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.majorrest.MajorRestPeriod.run" title="sleeppy.majorrest.MajorRestPeriod.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(self)</p></td>
+<td><p>Runs the algorithm to detect major rest period.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sleeppy.majorrest.MajorRestPeriod.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.majorrest.MajorRestPeriod.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the algorithm to detect major rest period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mrp</strong><span class="classifier">list of timestamp</span></dt><dd><p>Major rest period for the given 24 hour period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sleeppy.sleep">
+<span id="sleeppy-sleep-module"></span><h2>sleeppy.sleep module<a class="headerlink" href="#module-sleeppy.sleep" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sleeppy.sleep.SleepPy">
+<em class="property">class </em><code class="sig-prename descclassname">sleeppy.sleep.</code><code class="sig-name descname">SleepPy</code><span class="sig-paren">(</span><em class="sig-param">input_file</em>, <em class="sig-param">results_directory</em>, <em class="sig-param">sampling_frequency</em>, <em class="sig-param">aws_object=None</em>, <em class="sig-param">start_buffer='0s'</em>, <em class="sig-param">stop_buffer='0s'</em>, <em class="sig-param">start_time=''</em>, <em class="sig-param">stop_time=''</em>, <em class="sig-param">temperature_threshold=25.0</em>, <em class="sig-param">minimum_rest_block=30</em>, <em class="sig-param">allowed_rest_break=60</em>, <em class="sig-param">minimum_rest_threshold=0.1</em>, <em class="sig-param">maximum_rest_threshold=1000.0</em>, <em class="sig-param">minimum_hours=6</em>, <em class="sig-param">plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Processes raw GeneActiv accelerometer data from the wrist to determine various sleep metrics and endpoints.</p>
+<p><strong>* Support for data from other wrist worn accelerometers will be added in the future. To maximize generality an
+input format will be specified. As long as the input specifications are met, the package should produce the proper
+results. *</strong></p>
+<p>The sleep window detection of this package are based off of the following papers, as
+well as their implementation in the R package GGIR:</p>
+<p>van Hees V, Fang Z, Zhao J, Heywood J, Mirkes E, Sabia S, Migueles J (2019). GGIR: Raw Accelerometer Data Analysis.
+doi: 10.5281/zenodo.1051064, R package version 1.9-1, <a class="reference external" href="https://CRAN.R-project.org/package=GGIR">https://CRAN.R-project.org/package=GGIR</a>.</p>
+<p>van Hees V, Fang Z, Langford J, Assah F, Mohammad Mirkes A, da Silva I, Trenell M, White T, Wareham N,
+Brage S (2014).
+‘Autocalibration of accelerometer data or free-living physical activity assessment using local gravity and
+temperature: an evaluation on four continents.’ Journal of Applied Physiology, 117(7), 738-744.
+doi: 10.1152/japplphysiol.00421.2014, <a class="reference external" href="https://www.physiology.org/doi/10.1152/japplphysiol.00421.2014">https://www.physiology.org/doi/10.1152/japplphysiol.00421.2014</a></p>
+<p>van Hees V, Sabia S, Anderson K, Denton S, Oliver J, Catt M, Abell J, Kivimaki M, Trenell M, Singh-Maoux A (2015).
+‘A Novel, Open Access Method to Assess Sleep Duration Using a Wrist-Worn Accelerometer.’ PloS One, 10(11).
+doi: 10.1371/journal.pone.0142533, <a class="reference external" href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142533">http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142533</a>.</p>
+<p>The detection of sleep and wake states uses a heuristic model based on the algorithm described in:</p>
+<p>Cole, R.J., Kripke, D.F., Gruen, W.’., Mullaney, D.J., &amp; Gillin, J.C. (1992). Automatic sleep/wake identification
+from wrist activity. Sleep, 15 5, 461-9.</p>
+<p>The activity index feature is based on the index described in:</p>
+<p>Bai J, Di C, Xiao L, Evenson KR, LaCroix AZ, Crainiceanu CM, et al. (2016) An Activity Index for Raw Accelerometry
+Data and Its Comparison with Other Activity Metrics. PLoS ONE 11(8): e0160644.
+<a class="reference external" href="https://doi.org/10.1371/journal.pone.0160644">https://doi.org/10.1371/journal.pone.0160644</a></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.calculate_endpoints" title="sleeppy.sleep.SleepPy.calculate_endpoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_endpoints</span></code></a>(self)</p></td>
+<td><p>Calculates the clinical sleep endpoints for each 24 hour day.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.calculate_major_rest_periods" title="sleeppy.sleep.SleepPy.calculate_major_rest_periods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_major_rest_periods</span></code></a>(self)</p></td>
+<td><p>Gets the major rest periods for each 24 hour day.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.calculate_sleep_predictions" title="sleeppy.sleep.SleepPy.calculate_sleep_predictions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_sleep_predictions</span></code></a>(self)</p></td>
+<td><p>Gets the sleep/wake predictions for each 24 hour day.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.export" title="sleeppy.sleep.SleepPy.export"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export</span></code></a>(self)</p></td>
+<td><p>Exports a results table to csv.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.load" title="sleeppy.sleep.SleepPy.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(self)</p></td>
+<td><p>Loads full data into 24 hour days.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.run" title="sleeppy.sleep.SleepPy.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(self)</p></td>
+<td><p>Runs the full package end to end on the input data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sleeppy.sleep.SleepPy.visualize" title="sleeppy.sleep.SleepPy.visualize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize</span></code></a>(self)</p></td>
+<td><p>Builds all visual reports and exports them to pdf.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.calculate_endpoints">
+<code class="sig-name descname">calculate_endpoints</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.calculate_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the clinical sleep endpoints for each 24 hour day.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.calculate_major_rest_periods">
+<code class="sig-name descname">calculate_major_rest_periods</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.calculate_major_rest_periods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the major rest periods for each 24 hour day.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.calculate_sleep_predictions">
+<code class="sig-name descname">calculate_sleep_predictions</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.calculate_sleep_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the sleep/wake predictions for each 24 hour day.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.export">
+<code class="sig-name descname">export</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.export" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports a results table to csv.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads full data into 24 hour days.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the full package end to end on the input data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sleeppy.sleep.SleepPy.visualize">
+<code class="sig-name descname">visualize</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.sleep.SleepPy.visualize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds all visual reports and exports them to pdf.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sleeppy.utils">
+<span id="sleeppy-utils-module"></span><h2>sleeppy.utils module<a class="headerlink" href="#module-sleeppy.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sleeppy.utils.activity_index">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">activity_index</code><span class="sig-paren">(</span><em class="sig-param">windowed_array</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.activity_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute activity index of windowed tri-axis accelerometer signal.</p>
+<dl class="simple">
+<dt>Activity index defined here as:</dt><dd><p>sqrt(mean(vx, vy, vz))
+where vx, vy, vz are the variances in x, y, z</p>
+</dd>
+<dt>Activity index accounting for device specific systematic variance is defined as:</dt><dd><p>sqrt(max(mean(vx-vsx, vy-vsy, vz-vsz), 0))
+where vx, vy, vz are defined as above and vsx, vsy, vsz are the axis
+specific systematic variances</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>windowed_array</strong><span class="classifier">array-like</span></dt><dd><p>Full X,Y,Z tri-axis accelerometer signal with dimensions [number of windows, size of window, 3]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>activity_indices</strong><span class="classifier">array-like</span></dt><dd><p>Array of activity indices for input signal.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.bin2df">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">bin2df</code><span class="sig-paren">(</span><em class="sig-param">full_path</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.bin2df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads geneactiv .bin files into a pandas dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>full_path</strong><span class="classifier">str</span></dt><dd><p>Full path to the geneactiv .bin file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>decode</strong><span class="classifier">dataframe</span></dt><dd><p>Dataframe of decoded geneactiv data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.downsample">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">downsample</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">factor</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.downsample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsamples a pandas data frame to a desired frequency after using an antialiasing filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">data frame</span></dt><dd><p>Data to be downsampled.</p>
+</dd>
+<dt><strong>factor</strong><span class="classifier">int</span></dt><dd><p>Factor by which to downsample.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">data frame</span></dt><dd><p>Downsampled data frame</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.downsample_by_mean">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">downsample_by_mean</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">fs='50L'</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.downsample_by_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsamples a pandas data frame to a desired frequency by mean based aggregation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">data frame</span></dt><dd><p>Data to be downsampled. Data frame must have pandas date time index.</p>
+</dd>
+<dt><strong>fs</strong><span class="classifier">str</span></dt><dd><p>New sampling rate in string format.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>downsampled data frame</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.high_pass_filter">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">high_pass_filter</code><span class="sig-paren">(</span><em class="sig-param">windowed_array</em>, <em class="sig-param">sampling_rate</em>, <em class="sig-param">hp_cutoff</em>, <em class="sig-param">order</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.high_pass_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>High-pass filter a given windowed sensor signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>windowed_array</strong><span class="classifier">array-like</span></dt><dd><p>Sensor signal windowed with shape [number_of_windows, samples_per_window, number_of_data_channels].</p>
+</dd>
+<dt><strong>sampling_rate</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>hp_cutoff</strong><span class="classifier">float</span></dt><dd><p>High pass filter cutoff.</p>
+</dd>
+<dt><strong>order</strong><span class="classifier">int</span></dt><dd><p>Order of the filter.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>filtered</strong><span class="classifier">array-like</span></dt><dd><p>High pass filtered data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.load_geneactiv_csv">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">load_geneactiv_csv</code><span class="sig-paren">(</span><em class="sig-param">full_path</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.load_geneactiv_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads geneactiv csv data into a pandas dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>full_path</strong><span class="classifier">string</span></dt><dd><p>Full path to a geneactiv accelerometer csv file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">data frame</span></dt><dd><p>Pandas data frame of geneactiv accelerometer data including temperature and light.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.make_dummy_data">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">make_dummy_data</code><span class="sig-paren">(</span><em class="sig-param">freq='50L'</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.make_dummy_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes dummy sleep data. Default dummy data is 24 hours at 20hz. Sleep window from 10pm to 8am. Temperature set at 27
+degrees celsius.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>freq</strong><span class="classifier">string</span></dt><dd><p>Frequency expressed as string. 20hz Default expressed as “50L”. 100hz as “10L”.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>input_df, start_sleep, end_sleep</strong><span class="classifier">3-tuple of data frame, date-time object, date-time object</span></dt><dd><p>Dataframe of dummy sleep data, start of sleep window, end of sleep window.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.non_overlapping_windows">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">non_overlapping_windows</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">window_size</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.non_overlapping_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slices input data frame into windows of specified size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">data frame</span></dt><dd><p>Data frame to be windowed along the vertical axis.</p>
+</dd>
+<dt><strong>window_size</strong><span class="classifier">int</span></dt><dd><p>Window size in number of samples.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>windowed_data</strong><span class="classifier">numpy array</span></dt><dd><p>Data windowed to the specified size.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.number_of_wake_bouts">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">number_of_wake_bouts</code><span class="sig-paren">(</span><em class="sig-param">predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.number_of_wake_bouts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the number of wake bouts present in an array of sleep/wake predictions in one minute epochs. Number of
+wake bouts is exclusive of first wake before sleep, and last wake after sleep.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Binary sleep/wake predictions. Awake encoded as 1 and sleep as 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>nwb</strong><span class="classifier">int</span></dt><dd><p>Total number of wake bouts based on sleep/wake predictions provided.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.percent_time_asleep">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">percent_time_asleep</code><span class="sig-paren">(</span><em class="sig-param">predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.percent_time_asleep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the percent of time spent asleep on an array of sleep/wake predictions in one minute epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Binary sleep/wake predictions. Awake encoded as 1 and sleep as 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pta</strong><span class="classifier">float</span></dt><dd><p>Percentage of time spent asleep based on sleep/wake predictions provided.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.sleep_onset_latency">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">sleep_onset_latency</code><span class="sig-paren">(</span><em class="sig-param">predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.sleep_onset_latency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates sleep onset latency on an array of sleep/wake predictions in one minute epochs. This corresponds to the
+total number of minutes awake before the first sleep period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Binary sleep/wake predictions. Awake encoded as 1 and sleep as 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sol</strong><span class="classifier">int</span></dt><dd><p>Total number of minutes spent awake before the first sleep period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.total_sleep_time">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">total_sleep_time</code><span class="sig-paren">(</span><em class="sig-param">predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.total_sleep_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates total sleep time on an array of sleep/wake predictions in one minute epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Binary sleep/wake predictions. Awake encoded as 1 and sleep as 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>tst</strong><span class="classifier">int</span></dt><dd><p>Total time spent asleep based on sleep/wake predictions provided.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sleeppy.utils.wake_after_sleep_onset">
+<code class="sig-prename descclassname">sleeppy.utils.</code><code class="sig-name descname">wake_after_sleep_onset</code><span class="sig-paren">(</span><em class="sig-param">predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#sleeppy.utils.wake_after_sleep_onset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates number of minutes awake after first sleep period on an array of sleep/wake predictions in one minute
+epochs. Value is exclusive of the last wake period after sleep.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predictions</strong><span class="classifier">array-like</span></dt><dd><p>Binary sleep/wake predictions. Awake encoded as 1 and sleep as 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>waso</strong><span class="classifier">int</span></dt><dd><p>Total number of minutes spent awake after the first sleep period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to SleepPy’s documentation!</a></li>
+<li><a class="reference internal" href="#sleeppy-package">SleepPy package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-sleeppy.colekripke">sleeppy.colekripke module</a></li>
+<li><a class="reference internal" href="#module-sleeppy.majorrest">sleeppy.majorrest module</a></li>
+<li><a class="reference internal" href="#module-sleeppy.sleep">sleeppy.sleep module</a></li>
+<li><a class="reference internal" href="#module-sleeppy.utils">sleeppy.utils module</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">SleepPy 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Yiorgos Christakis.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+SleepPy package
+===============
+
+Submodules
+----------
+
+sleeppy.colekripke module
+-------------------------
+
+.. automodule:: sleeppy.colekripke
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sleeppy.majorrest module
+------------------------
+
+.. automodule:: sleeppy.majorrest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sleeppy.sleep module
+--------------------
+
+.. automodule:: sleeppy.sleep
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sleeppy.utils module
+--------------------
+
+.. automodule:: sleeppy.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

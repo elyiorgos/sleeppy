@@ -1,4 +1,5 @@
 import pytest
+import tempfile
 import numpy as np
 import pandas as pd
 from importlib import resources
@@ -98,24 +99,27 @@ def test_export(output_table):
     # DUMMY DATA
     data, start, end = make_dummy_data()
 
-    # INIT CLASS WITH 2 DAYS OF DATA
-    sleep = SleepPy("dummy/test_report.csv", "test_data/", sampling_frequency=20.0)
-    sleep.raw_days = [data, data]
-    sleep.raw_days_to_plot = [
-        data.resample("60s").median(),
-        data.resample("60s").median(),
-    ]
+    # TEMP OUTPUT DIR
+    with tempfile.TemporaryDirectory() as out_dir:
 
-    # PREDICTIONS
-    sleep.calculate_major_rest_periods()
-    sleep.calculate_sleep_predictions()
-    sleep.calculate_endpoints()
+        # INIT CLASS WITH 2 DAYS OF DATA
+        sleep = SleepPy("dummy/test_report.csv", out_dir, sampling_frequency=20.0)
+        sleep.raw_days = [data, data]
+        sleep.raw_days_to_plot = [
+            data.resample("60s").median(),
+            data.resample("60s").median(),
+        ]
 
-    # EXPORT DATA
-    sleep.export()
+        # PREDICTIONS
+        sleep.calculate_major_rest_periods()
+        sleep.calculate_sleep_predictions()
+        sleep.calculate_endpoints()
 
-    # LOAD EXPECTED AND TEST
-    expected = pd.read_csv(output_table("expected"))
-    test = pd.read_csv(output_table("input"))
+        # EXPORT DATA
+        sleep.export()
 
-    assert np.array_equal(expected, test)
+        # LOAD EXPECTED AND TEST
+        expected = pd.read_csv(output_table("expected"))
+        test = pd.read_csv(out_dir + "/test_report_output_table.csv")
+
+        assert np.array_equal(expected, test)

@@ -30,15 +30,9 @@ def activity_index_data():
 @fixture(scope="package")
 def output_table():
     def _get_path(data):
-        if data == "input":
-            with resources.path(
-                "sleeppy.test.test_data", "test_report_output_table.csv"
-            ) as file_path:
-                return file_path
-        elif data == "expected":
+        if data == "expected":
             with resources.path(
                 "sleeppy.test.test_data", "test_report_output_table_expected.csv"
             ) as file_path:
                 return file_path
-
     return _get_path

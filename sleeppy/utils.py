@@ -140,6 +140,14 @@ def activity_index(windowed_array):
     """
     Compute activity index of windowed tri-axis accelerometer signal.
 
+    Activity index defined here as:
+            sqrt(mean(vx, vy, vz))
+            where vx, vy, vz are the variances in x, y, z
+    Activity index accounting for device specific systematic variance is defined as:
+            sqrt(max(mean(vx-vsx, vy-vsy, vz-vsz), 0))
+            where vx, vy, vz are defined as above and vsx, vsy, vsz are the axis
+            specific systematic variances
+
     Parameters
     ----------
     windowed_array : array-like
