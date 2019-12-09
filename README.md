@@ -133,7 +133,7 @@ In the interpreter window you can then import and run the demo with the followin
 
 ```sh
 >>> import sleeppy.tests as demo
->>> tests.run_demo()
+>>> demo.run_demo()
 ```
 
 The demo script will prompt you to type in a results directory, if simply testing you can type something like 
@@ -208,6 +208,9 @@ https://doi.org/10.1371/journal.pone.0160644
 
 ## Contributing to the project
 We welcome and encourage project contributions! Please see the [CONTRIBUTING.md](https://github.com/elyiorgos/sleeppy/blob/master/CONTRIBUTING.md) file for details.
+
+## Acknowledgements
+The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
 ## Author
 Yiorgos Christakis
