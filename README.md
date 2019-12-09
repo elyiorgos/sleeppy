@@ -133,7 +133,7 @@ In the interpreter window you can then import and run the demo with the followin
 
 ```sh
 >>> import sleeppy.tests as demo
->>> tests.run_demo()
+>>> demo.run_demo()
 ```
 
 The demo script will prompt you to type in a results directory, if simply testing you can type something like 
