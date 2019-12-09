@@ -82,6 +82,7 @@ class SleepPy:
         minimum_hours=6,
         clear_intermediate_data=False,
         aws_object=None,
+        verbose=False,
     ):
         """
         Class initialization.
@@ -102,6 +103,7 @@ class SleepPy:
         :param minimum_hours: minimum number of hours required to consider a day useable (int)
         :param clear_intermediate_data: boolean flag to clear all intermediate data
         :param aws_object: data object to be processed from aws (in place of source file path
+        :param verbose: boolean for printing status
         """
         if aws_object is not None:
             self.src = aws_object
@@ -132,6 +134,7 @@ class SleepPy:
         self.maximum_rest_threshold = maximum_rest_threshold
         self.minimum_hours = minimum_hours
         self.clear = clear_intermediate_data
+        self.verbose = verbose
         self.run()  # run the package
 
     def run(self):
@@ -145,34 +148,52 @@ class SleepPy:
             pass
         if self.run_config <= 0:
             # split the data into 24 hour periods
+            if self.verbose:
+                print("Loading data...")
             if ".bin" in self.src:
                 self.split_days_geneactiv_bin()
             elif ".csv" in self.src:
                 self.split_days_geneactiv_csv()
         if self.run_config <= 1:
             # extract the activity index feature
+            if self.verbose:
+                print("Extracting activity index...")
             self.extract_activity_index()
         if self.run_config <= 2:
             # run wear/on-body detection
+            if self.verbose:
+                print("Running off-body detection...")
             self.wear_detection()
         if self.run_config <= 3:
             # run major rest period detection
+            if self.verbose:
+                print("Detecting major rest period...")
             self.major_rest_period()
         if self.run_config <= 4:
             # run sleep wake predictions on the major rest period
+            if self.verbose:
+                print("Running sleep/wake predictions...")
             self.sleep_wake_predict()
         if self.run_config <= 5:
             # calculate endpoints based on the above predictions
+            if self.verbose:
+                print("Calculating endpoints...")
             self.calculate_endpoints()
         if self.run_config <= 6:
             # generates visual reports
+            if self.verbose:
+                print("Generating visual reports...")
             self.visualize_results()
 
         # aggregate results
+        if self.verbose:
+            print("Aggregating results...")
         self.aggregate_results()
 
         # clear data
         if self.clear:
+            if self.verbose:
+                print("Clearing intermediate data...")
             self.clear_data()
 
     def split_days_geneactiv_csv(self):

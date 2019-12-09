@@ -24,9 +24,9 @@ def run_demo(binder_demo=False):
     st = time.time()
     try:
         if not binder_demo:
-            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100)
+            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100, verbose=True)
         else:
-            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100, run_config=4)
+            SleepPy(input_file=src, results_directory=dst, sampling_frequency=100, run_config=4, verbose=True)
     except Exception as e:
         print("Error processing: {}\nError: {}".format(src, e))
     stp = time.time()
