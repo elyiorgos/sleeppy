@@ -212,6 +212,9 @@ We welcome and encourage project contributions! Please see the [CONTRIBUTING.md]
 ## Acknowledgements
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
+## Acknowledgements
+The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
+
 ## Author
 Yiorgos Christakis
 
