@@ -1,6 +1,8 @@
 # SleepPy
 A Python(2.7) package for sleep analysis from accelerometer data
 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.01663/status.svg)](https://doi.org/10.21105/joss.01663)
+
 ## Overview
 Measures of sleep quality and quantity can provide valuable insights into the health and well-being of an individual. 
 Traditionally, sleep assessments are performed in the clinic/hospital setting using polysomnography tests. 
