@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  27 NOV 2019 10:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  18 DEC 2019 16:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -882,6 +882,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 257--257
 est_threshold=0.1\T1/ptm/m/n/10 , \T1/ptm/m/it/10 max-i-
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 257--257
+\T1/ptm/m/it/10 mum_rest_threshold=1000.0\T1/ptm/m/n/10 , \T1/ptm/m/it/10 min-i
+-mum_hours=6\T1/ptm/m/n/10 , \T1/ptm/m/it/10 down-sam-
+ []
+
 [2] [3] [4] [5] [6] [7
 
 
@@ -948,7 +954,7 @@ Here is how much of TeX's memory you used:
  16973 multiletter control sequences out of 15000+600000
  44017 words of font info for 64 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 37i,12n,45p,656b,592s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,12n,45p,680b,592s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2019/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2
 019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texm
@@ -958,7 +964,7 @@ ype1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/u
 rw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/time
 s/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sleeppy.pdf (13 pages, 125012 bytes).
+Output written on sleeppy.pdf (13 pages, 124964 bytes).
 PDF statistics:
  243 PDF objects out of 1000 (max. 8388607)
  211 compressed objects within 3 object streams

@@ -35,4 +35,5 @@ def output_table():
                 "sleeppy.test.test_data", "test_report_output_table_expected.csv"
             ) as file_path:
                 return file_path
+
     return _get_path

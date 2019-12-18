@@ -82,27 +82,7 @@ SleepPy(input_file='/Users/user/input_files/data.csv',
         sampling_frequency=100.).run()
 ```
 
-``SleepPy`` can also be run with all of the following arguments. A description of the purpose and formats for these and 
-other arguments, can be found in the sleep.py docs.
-
-```sh
-from sleeppy.sleep import SleepPy
-
-SleepPy(input_file='/Users/user/input_files/data.csv',
-        results_directory='/Users/user/Results/',
-        sampling_frequency=100.,
-        aws_object=None,
-        start_buffer="0s",
-        stop_buffer="0s",
-        start_time="",
-        stop_time="",
-        temperature_threshold=25.0,
-        minimum_rest_block=30,
-        allowed_rest_break=60,
-        minimum_rest_threshold=0.0,
-        maximum_rest_threshold=1000.0,
-        minimum_hours=6,).run()
-```
+``SleepPy`` can also be run with several tunable arguments. A description of the purpose and formats for these can be found in the sleep.py docs.
 
 ## Running the demo files
 #### Try it out with binder

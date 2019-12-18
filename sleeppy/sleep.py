@@ -76,6 +76,7 @@ class SleepPy(object):
         minimum_rest_threshold=0.1,
         maximum_rest_threshold=1000.0,
         minimum_hours=6,
+        downsample=True,
         plot=True,
     ):
         """
@@ -111,6 +112,8 @@ class SleepPy(object):
             Maximum allowed threshold for determining major rest period.
         minimum_hours : float
             Minimum number of hours required to consider a day useable.
+        downsample : boolean
+            True triggers downsampling to 20hz.
         plot : boolean
             True triggers plotting of data.
         """
@@ -135,6 +138,7 @@ class SleepPy(object):
         self.minimum_rest_threshold = minimum_rest_threshold
         self.maximum_rest_threshold = maximum_rest_threshold
         self.minimum_hours = minimum_hours
+        self.downsample = downsample
         self.plot = plot
 
         # DATA
@@ -189,9 +193,10 @@ class SleepPy(object):
         )
 
         # DOWNSAMPLE
-        if self.fs > 20.0:
-            df = downsample(df, int(self.fs) // 20)
-            self.fs = 20.0
+        if self.downsample:
+            if self.fs > 20.0:
+                df = downsample(df, int(self.fs) // 20)
+                self.fs = 20.0
 
         # APPLY BUFFERS
         df = df.loc[
