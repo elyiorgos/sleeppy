@@ -330,11 +330,15 @@ class SleepPy(object):
         for day in days:
             # LOAD DATA, GET SHARED AXIS
             raw = self.raw_days_to_plot[day]
-            idx = pd.date_range(
-                start=raw.index[0].replace(hour=12, minute=0, second=0, microsecond=0),
-                periods=1440,
-                freq="60s",
+            idx_start = raw.index[0]
+            idx_start = (
+                idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                - pd.to_timedelta("24h")
+                if idx_start
+                < idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                else idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
             )
+            idx = pd.date_range(start=idx_start, periods=1440, freq="60s")
             raw = raw.reindex(idx, fill_value=np.nan)
 
             # ACTIVITY INDEX
