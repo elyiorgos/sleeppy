@@ -580,8 +580,16 @@ class SleepPy(object):
         export_df = []
         for day in days:
             if self.major_rest_periods[day]:
+                idx_start = self.raw_days_to_plot[day].index[0]
+                idx_start = (
+                    idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                    - pd.to_timedelta("24h")
+                    if idx_start
+                    < idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                    else idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                )
                 export_df.append(
-                    [str(self.raw_days_to_plot[day].index[0].date())]
+                    [str(idx_start.date())]
                     + self.endpoints[day + 1]
                     + [str(i) for i in self.major_rest_periods[day]]
                 )
