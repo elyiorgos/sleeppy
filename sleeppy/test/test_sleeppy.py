@@ -122,4 +122,4 @@ def test_export(output_table):
         expected = pd.read_csv(output_table("expected"))
         test = pd.read_csv(out_dir + "/test_report_output_table.csv")
 
-        assert np.array_equal(expected, test)
+        assert expected.equals(test)

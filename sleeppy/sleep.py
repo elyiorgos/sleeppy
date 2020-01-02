@@ -579,15 +579,15 @@ class SleepPy(object):
         days = list(range(0, len(self.raw_days_to_plot)))
         export_df = []
         for day in days:
+            idx_start = self.raw_days_to_plot[day].index[0]
+            idx_start = (
+                idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                - pd.to_timedelta("24h")
+                if idx_start
+                < idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+                else idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
+            )
             if self.major_rest_periods[day]:
-                idx_start = self.raw_days_to_plot[day].index[0]
-                idx_start = (
-                    idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
-                    - pd.to_timedelta("24h")
-                    if idx_start
-                    < idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
-                    else idx_start.replace(hour=12, minute=0, second=0, microsecond=0)
-                )
                 export_df.append(
                     [str(idx_start.date())]
                     + self.endpoints[day + 1]
@@ -595,7 +595,7 @@ class SleepPy(object):
                 )
             else:
                 export_df.append(
-                    [str(self.raw_days_to_plot[day].index[0].date())]
+                    [str(idx_start.date())]
                     + self.endpoints[day + 1]
                     + ["None Detected", "None Detected"]
                 )
